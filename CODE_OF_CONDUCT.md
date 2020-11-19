@@ -37,6 +37,12 @@ Continued one-on-one communication after requests to cease
 Other conduct that is inappropriate for a professional audience including people of many different backgrounds
 Community members asked to stop any inappropriate behavior are expected to comply immediately.
 
+## Consequences
+Group members that violate this Code of Conduct may be removed from the group. 
+
+## Incident Reporting
+If someone violates the Code of Conduct, it can be reported to Heid Ye at hye@students.ubc.ca. This email will not be publically visible. 
+
 ## Attributions
 This Code of Conduct was adapted from the Python Software Foundation Code of Conduct. 
 
