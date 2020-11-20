@@ -18,13 +18,8 @@ opt = docopt(__doc__)
 
 def main(file_path, saving_path):
   # read in data
-  print(1)
   df = pd.read_csv(file_path)
-  print(2)
   df.to_csv(saving_path)
-  print(3)
-# standard error function
-
 
 if __name__ == "__main__":
     main(opt["--file_path"],opt["--saving_path"])
