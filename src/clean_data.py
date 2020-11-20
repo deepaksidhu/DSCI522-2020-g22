@@ -4,7 +4,7 @@
 """This script reads the diabetes data from a given path and saves the clean
 data in the specified path
 
-Usage: downloadData.py --file_path=<file_path>  --saving_path=<saving_path>
+Usage: python clean_data.py --file_path=<file_path>  --saving_path=<saving_path>
 
 Options:
 --file_path=<file_path>   Path to the data file
