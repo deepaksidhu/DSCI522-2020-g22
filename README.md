@@ -9,7 +9,13 @@ Data analysis collaboration project for DSCI 522 (Data Science Workflows); a cou
 
 ## Project Proposal
 
-For this data analysis project we are interested to investigate the question: based on medical screening questions, which features are important in assessing early stage risk of Diabetes for individuals? It is estimated that 463 M(million) of people worldwide have diabetes, and this number is expected to rise to 578 M in the year 2045 (Saeedi, Petershon et al., 2019). The statistics reported about the cases of diabetes is quite alarming, and most of these cases are undiagnosed. As a result, addressing the research question is crucial, since having a thorough knowledge of the presensce of which symptoms are likely to contribute to diabetes based on some screening question, will provide a precursor and direction for individuals to seek medical treatment. Some sub questions that may follow from this topic include: 1) Are traits that are commonly associated with Diabetes (ie. obesity) truely associated with the disease? 2) If our test scores are low, are there any obvious categories that are missing from the screen test?
+For this data analysis project we are interested to investigate the question: Based on medical screening questions, which of the three machine learning models below predict for a diabetes diagnosis most accurately? 
+
+* Decision Tree
+* Naive Bayes
+* Logistic Regression
+
+It is estimated that 463 M(million) of people worldwide have diabetes, and this number is expected to rise to 578 M in the year 2045 (Saeedi, Petershon et al., 2019). The statistics reported about the cases of diabetes is quite alarming, and most of these cases are undiagnosed. As a result, addressing the research question is crucial, since having a thorough knowledge of the presensce of which symptoms are likely to contribute to diabetes based on some screening question, will provide a precursor and direction for individuals to seek medical treatment. Some sub questions that may follow from this topic include: 1) Are traits that are commonly associated with Diabetes (ie. obesity) truely associated with the disease? 2) If our test scores are low, are there any obvious categories that are missing from the screen test?
 
 The dataset used for the analysis in the project is based on medical screening questions from the patients of Sylhet Diabetes Hospital in Bangladesh collected by M, IslamEmail, Rahatara Ferdousi, Sadikur Rahman and Yasmin Bushra. The dataset was sourced from the UCI Machine Learning Repository and can be found in [here](https://archive.ics.uci.edu/ml/datasets/Early+stage+diabetes+risk+prediction+dataset.) specifically [this file](https://archive.ics.uci.edu/ml/machine-learning-databases/00529/diabetes_data_upload.csv).
 
