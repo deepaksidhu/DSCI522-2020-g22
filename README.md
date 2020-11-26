@@ -25,7 +25,7 @@ The second part of the EDA process is to perform data visualizations on the raw 
 
 After perfoming the EDA, and preprocessing steps we will create a pipeline and carry out cross validation with our three models on the training set, with the corresponding hyperparameter optimization. For the Decision Tree model, we will optimize for the the minimum level of decision splits (via max_depth). For Naive Bayes and the Logistic Regression, we will optimize for model complexity via the alpha and parameter C hyperparameters. Another aspect of our model to consider is if all the features necessarily play a role in predicting the target. We will be implementing forward selection to understand if certain features can be dropped without compromising the model score. 
 
-Ultimately, we are intrested in the model with the highest recall score. This metric protects against false negatives, which is more detrimental than false positives when it comes to a medical diagnosis. 
+Ultimately, we are intrested in the model with the highest f1 score. This takes into account model accuracy for both recall and precision. This is important since we are predicting for model accurary as well as protecting against false negatives. 
 
 The final results will consist of:
  * a decision tree diagram outlining the split of the features
