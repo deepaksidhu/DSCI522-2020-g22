@@ -117,46 +117,19 @@ class model_result_generator:
 
         # Hyperparameter tuning of the models and saving recall score of tests
         scores = []
-        models = []
-
-        # Decision Tree
-        model = DecisionTreeClassifier()
-
+        model_names = ["decision_tree", "GaussianNB", "logisticregression"]
+        models = [
+            DecisionTreeClassifier(),
+            GaussianNB(),
+            LogisticRegression(random_state=123, max_iter=1000),
+        ]
         decision_tree_pipe_hyperparamters = {
             "decisiontreeclassifier__max_depth": range(1, 10),
             "decisiontreeclassifier__min_samples_leaf": range(1, 5),
         }
-
-        score = self.__train_report_save_model(
-            model, decision_tree_pipe_hyperparamters, col_trans
-        )
-        if score == -1:
-            print("error hyperparameter tuning decision tree")
-            return -1
-
-        scores.append(score)
-        models.append("Decision_Tree")
-        # GaussianNB
-        model = GaussianNB()
-
         gaussiannb_pipe_hyperparamters = {
             "gaussiannb__var_smoothing": [10 ** pow for pow in range(-7, 5)]
         }
-
-        score = self.__train_report_save_model(
-            model, gaussiannb_pipe_hyperparamters, col_trans
-        )
-
-        scores.append(score)
-        if score == -1:
-            print("error hyperparameter tuning GaussianNB")
-            return -1
-        models.append("GaussianNB")
-
-        # Logistic Regression
-
-        model = LogisticRegression(random_state=123, max_iter=1000)
-
         logisticregression_pipe_hyperparamters = {
             "logisticregression__C": [10 ** pow for pow in range(-7, 2)],
             "logisticregression__solver": [
@@ -167,20 +140,24 @@ class model_result_generator:
                 "saga",
             ],
         }
+        hyperparameters = [
+            decision_tree_pipe_hyperparamters,
+            gaussiannb_pipe_hyperparamters,
+            logisticregression_pipe_hyperparamters,
+        ]
 
-        score = self.__train_report_save_model(
-            model, logisticregression_pipe_hyperparamters, col_trans
-        )
-
-        if score == -1:
-            print("error hyperparameter Logistic Regression")
-            return -1
-        scores.append(score)
-        models.append("LogisticRegression")
+        for i in range(0, 3):
+            model = models[i]
+            hyperparameter = hyperparameters[i]
+            score = self.__train_report_save_model(model, hyperparameter, col_trans)
+            if score == -1:
+                print("error hyperparameter tuning decision tree")
+                return -1
+            scores.append(score)
 
         # Save f1 scores for models to a file
 
-        pd.DataFrame({"model_name": models, "f1_score": scores}).to_csv(
+        pd.DataFrame({"model_name": model_names, "f1_score": scores}).to_csv(
             self.save_dir_results + "test_f1_scores.csv",
             index_label=False,
             index=False,
