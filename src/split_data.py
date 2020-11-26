@@ -68,9 +68,9 @@ def main(input_file_path, saving_path_train, saving_path_test, test_size):
 
     try:
         # save train portion
-        train_data.to_csv(saving_path_train, index_label=False)
+        train_data.to_csv(saving_path_train, index_label=False, index=False)
         # save test portion
-        test_data.to_csv(saving_path_test, index_label=False)
+        test_data.to_csv(saving_path_test, index_label=False, index=False)
     except Exception as e:
         print(f"The script failed to save the save train or test with the error {e}")
         return -1
