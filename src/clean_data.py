@@ -7,7 +7,7 @@ data in the specified path
 Usage: clean_data.py --file_path=<file_path>  --saving_path=<saving_path>
 
 Options:
---file_path=<file_path>   Path to the data file
+--file_path=<file_path>   Path to the raw data file
 --saving_path=<saving_path>  Path the data file must be saved
 """
 
@@ -47,7 +47,8 @@ def main(file_path, saving_path):
         diabetes.columns = diabetes.columns.str.replace("\s+", "_")
         diabetes.columns = diabetes.columns.str.replace("\s+", "_").str.lower()
 
-        diabetes.to_csv(saving_path, index_label=False)
+        diabetes.to_csv(saving_path, index_label=False, index=False)
+
     except Exception as e:
         print(f"The script failed to save the clean data with the error {e}")
         return -1
