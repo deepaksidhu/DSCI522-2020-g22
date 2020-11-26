@@ -1,3 +1,23 @@
+# author: Kevin Shahnazari
+# date: 2020-11-25
+
+"""This script reads the Train and test data and creates 7 different output files.
+this script runs hyperparameter optimization and chooses the best models based on some predefined hyperparameter settings using the f1_score metric.
+The models are Decision Tree, GaussianNB and Logistic Regression.
+The chosen models are saved using the pickle library and saved into the save_dir_models directory with the name of the models(folder) (3 files)
+The scores for the hyperparameter optimization step for the models are saved into the save_dir_results directory(folder) with the name models__hyperparameters.csv format (3 files)
+The f1 scores of the testing data is saved into the save_dir_results directory with the name test_f1_scores.csv (1 file)
+
+Usage: clean_data.py --train_data_path=<train_data_path>  --test_data_path=<test_data_path>  --save_dir_models=<save_dir_models>
+ --save_dir_results=<save_dir_results>
+
+Options:
+--train_data_path=<train_data_path=>   Path to the training data file
+--test_data_path=<test_data_path>  Path the testing data file
+--save_dir_models=<save_dir_models>   Path to save the models
+--save_dir_results=<save_dir_results>  Path the save the results
+"""
+
 from sklearn.pipeline import make_pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -10,6 +30,9 @@ from sklearn.metrics import recall_score, make_scorer, precision_score, f1_score
 import pandas as pd
 import pickle
 import string
+from docopt import docopt
+
+opt = docopt(__doc__)
 
 
 def main(train_data_path, test_data_path, save_dir_models, save_dir_results):
@@ -23,12 +46,19 @@ def main(train_data_path, test_data_path, save_dir_models, save_dir_results):
         return -1
 
     # Genarate all the output files
-    model_result_generator(
+    res = model_result_generator(
         train_data, test_data, save_dir_models, save_dir_results
     ).genarate_result()
 
 
 class model_result_generator:
+    """
+    This class would be used to genarate the outputs of the script
+    Basically it does all the things mentioned in the docopt documentation
+    For the files to be generated the genarate_result function must be call
+    after initilization.
+    """
+
     def __init__(self, train_data, test_data, save_dir_models, save_dir_results):
         """initilize class
         Args:
@@ -50,13 +80,12 @@ class model_result_generator:
         with some suitable hyper parameters for them and calls the train_test_report function
         to genarate the best model and hyperparameter f1scores for each model.
         Also this function saves the test f1score of all
-        the models into the save_dir_results folder in a csv file with the name test_recall_scores.csv
+        the models into the save_dir_results folder in a csv file with the name test_f1_scores.csv
 
         Returns:
-        0 if it was sucessful
-        -1 if somewhere the function fails
-
+        -1 if there was a problem in the program
         """
+
         # Split into X and y
 
         try:
@@ -102,6 +131,9 @@ class model_result_generator:
         score = self.__train_report_save_model(
             model, decision_tree_pipe_hyperparamters, col_trans
         )
+        if score == -1:
+            print("error hyperparameter tuning decision tree")
+            return -1
 
         scores.append(score)
         models.append("Decision_Tree")
@@ -117,6 +149,9 @@ class model_result_generator:
         )
 
         scores.append(score)
+        if score == -1:
+            print("error hyperparameter tuning GaussianNB")
+            return -1
         models.append("GaussianNB")
 
         # Logistic Regression
@@ -138,6 +173,9 @@ class model_result_generator:
             model, logisticregression_pipe_hyperparamters, col_trans
         )
 
+        if score == -1:
+            print("error hyperparameter Logistic Regression")
+            return -1
         scores.append(score)
         models.append("LogisticRegression")
 
@@ -169,8 +207,10 @@ class model_result_generator:
             f1score : if the functions runs correctly
         """
         try:
+            # make the pipe line which has the column transformer inside
             pipe = make_pipeline(col_trans, model)
 
+            # define the f1 scorer we want to give the GridSearchCV to optimize
             def score_func(y_true, y_pred, **kwargs):
                 return f1_score(y_true, y_pred, pos_label="Positive")
                 # Change to bellow if we want recall score
@@ -178,6 +218,7 @@ class model_result_generator:
 
             scorer = make_scorer(score_func)
 
+            # Hyperparameter optimize step
             clf = GridSearchCV(
                 pipe,
                 hyperparameters,
@@ -212,8 +253,10 @@ class model_result_generator:
             return -1
 
 
-train_data = "train_data.csv"
-test_data = "test_data.csv"
-save_dir_models = "./"
-save_dir_results = "./"
-main(train_data, test_data, save_dir_models, save_dir_results)
+if __name__ == "__main__":
+    main(
+        opt["--train_data_path"],
+        opt["--test_data_path"],
+        opt["--save_dir_models"],
+        opt["--save_dir_results"],
+    )
