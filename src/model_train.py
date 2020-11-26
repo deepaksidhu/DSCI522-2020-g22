@@ -8,8 +8,7 @@ The chosen models are saved using the pickle library and saved into the save_dir
 The scores for the hyperparameter optimization step for the models are saved into the save_dir_results directory(folder) with the name models__hyperparameters.csv format (3 files)
 The f1 scores of the testing data is saved into the save_dir_results directory with the name test_f1_scores.csv (1 file)
 
-Usage: clean_data.py --train_data_path=<train_data_path>  --test_data_path=<test_data_path>  --save_dir_models=<save_dir_models>
- --save_dir_results=<save_dir_results>
+Usage: clean_data.py --train_data_path=<train_data_path>  --test_data_path=<test_data_path>  --save_dir_models=<save_dir_models> --save_dir_results=<save_dir_results>
 
 Options:
 --train_data_path=<train_data_path=>   Path to the training data file
@@ -182,7 +181,7 @@ class model_result_generator:
         # Save f1 scores for models to a file
 
         pd.DataFrame({"model_name": models, "f1_score": scores}).to_csv(
-            save_dir_results + "_test_f1_scores.csv",
+            self.save_dir_results + "test_f1_scores.csv",
             index_label=False,
             index=False,
         )

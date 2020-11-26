@@ -59,7 +59,9 @@ def main(input_file_path, saving_path_train, saving_path_test, test_size):
 
     # Split dataframe
     try:
-        train_data, test_data = train_test_split(df, test_size=test_size)
+        train_data, test_data = train_test_split(
+            df, test_size=test_size, random_state=123
+        )
     except Exception as e:
         print(f"The script failed to split data with error {e}")
         return -1
