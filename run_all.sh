@@ -31,5 +31,5 @@ python src/model_train.py --train_data_path="data/train_data.csv" --test_data_pa
 Rscript src/model_figures.r --model=results/model_scores/ --save_figures=results/figures
 
 # render final report
-
+Rscript -e "rmarkdown::render('report/diabete_predict_report.Rmd', output_format = 'github_document') 
 
