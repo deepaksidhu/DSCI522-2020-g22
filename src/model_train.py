@@ -116,7 +116,7 @@ class model_result_generator:
         )
 
         # Hyperparameter tuning of the models and saving recall score of tests
-        scores = []
+
         model_names = ["decision_tree", "GaussianNB", "logisticregression"]
         models = [
             DecisionTreeClassifier(),
@@ -145,7 +145,10 @@ class model_result_generator:
             gaussiannb_pipe_hyperparamters,
             logisticregression_pipe_hyperparamters,
         ]
-
+        f1_scores = []
+        recall_scores = []
+        precision_scores = []
+        acc_scores = []
         for i in range(0, 3):
             model = models[i]
             hyperparameter = hyperparameters[i]
@@ -153,12 +156,23 @@ class model_result_generator:
             if score == -1:
                 print("error hyperparameter tuning decision tree")
                 return -1
-            scores.append(score)
+            f1_scores.append(score[0])
+            recall_scores.append(score[1])
+            precision_scores.append(score[2])
+            acc_scores.append(score[3])
 
         # Save f1 scores for models to a file
 
-        pd.DataFrame({"model_name": model_names, "f1_score": scores}).to_csv(
-            self.save_dir_results + "test_f1_scores.csv",
+        pd.DataFrame(
+            {
+                "model_name": model_names,
+                "f1_score": f1_scores,
+                "recall_score": recall_scores,
+                "precision_score": precision_scores,
+                "accuracy": acc_scores,
+            }
+        ).to_csv(
+            self.save_dir_results + "test_scores.csv",
             index_label=False,
             index=False,
         )
@@ -217,9 +231,14 @@ class model_result_generator:
                 index=False,
             )
 
-            # Return f1 of best metric on testing data
+            # Return f1,recall,precision and accuracy of best metric on testing data
             y_test_predict = res.best_estimator_.predict(self.X_test)
-            return f1_score(self.y_test, y_test_predict, pos_label="Positive")
+            return [
+                f1_score(self.y_test, y_test_predict, pos_label="Positive"),
+                recall_score(self.y_test, y_test_predict, pos_label="Positive"),
+                precision_score(self.y_test, y_test_predict, pos_label="Positive"),
+                res.best_estimator_.score(self.X_test, self.y_test),
+            ]
             # Change to below if we want recall score
             # return recall_score(y_test, y_test_predict, pos_label="Positive")
         except Exception as e:
