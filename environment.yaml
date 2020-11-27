@@ -3,7 +3,6 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - pandas
-  - scikit-learn
-  - docopt
-
+  - pandas=1.1.1
+  - scikit-learn=0.23.2
+  - docopt=0.6.2
