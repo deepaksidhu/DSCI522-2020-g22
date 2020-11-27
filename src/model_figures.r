@@ -1,7 +1,8 @@
 # author: Heidi Ye, Gurdeepak Sidhu
 # date: 2020-11-27
 
-"This script reads the model model scores and creates a plot for each model based on the hyperparameter values and accuracy.
+"This script reads the model scores from three different classification algorithms(Decision Tree, Logistic Regression, Naive Bayes model)
+and creates a plot for the train score and test score for the hyperparameter optimization for each model.
 
 Usage: report_figures.py --model=<model> --save_figures=<save_figures> 
 
