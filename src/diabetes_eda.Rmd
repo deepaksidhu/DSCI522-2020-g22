@@ -1,0 +1,116 @@
+---
+title: "Exploratory data analysis of the Diabetes Risk dataset"
+output: github_document
+bibliography: ../doc/diabetes_references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message=FALSE)
+library(tidyverse)
+library(caret)
+library(knitr)
+library(ggthemes)
+library(ggridges)
+theme_set(theme_minimal())
+library(reticulate)
+set.seed(2020)
+```
+
+
+```{python libraries}
+import pandas as pd
+
+```
+
+# Summary of the data set
+
+```{python load data}
+diabetes = pd.read_csv("../data/raw_data.csv")
+
+# Drop first unnamed column
+diabetes = diabetes.iloc[:, 1:]
+# Clean column names
+diabetes.columns = diabetes.columns.str.replace("\s+", "_")
+diabetes.columns = diabetes.columns.str.replace("\s+", "_").str.lower()
+
+
+
+```
+The dataset used for the analysis in the project is based on medical screening questions from the patients of Sylhet Diabetes Hospital in Bangladesh collected by M, IslamEmail, Rahatara Ferdousi, Sadikur Rahman and Yasmin Bushra [@Islametal]. The dataset was sourced from the UCI Machine Learning Repository [@Dua2019] specifically [this file](https://archive.ics.uci.edu/ml/machine-learning-databases/00529/diabetes_data_upload.csv).
+
+Each observation in the data set is a patient, and attributes corresponds to the medical screening questions asked such as age, sex, obesity and others. It includes the diagnosis for the patient (positive(Diabetic) or negative(Not Diabetic)), and the diagnosis was conducted and approved by a certified doctor. There are `r nrow(py$diabetes)` observations in the data set, and `r ncol(py$diabetes)` features. There are no observations with missing values in the data set. The number of observations in each classes are shown in the table below.
+
+
+```{r class counts}
+kable(summarise(py$diabetes,
+                `Positive Diabetes` = sum(class  == "Positive"),
+                `Negative Diabetes` = sum(class  == "Negative")),
+      caption = "Table 1. Counts of observation for each class.")
+```
+
+
+# Partition the data set into training and test sets
+
+Before proceeding further, we will split the data such that 80% of observations are in the training and 20% of observations are in the test set. Below we list the counts of observations for each class:
+
+```{r split data}
+# read in training and test data sets
+training_data <-  read.csv("../data/train_data.csv")
+test_data <-   read.csv("../data/test_data.csv")
+
+train_counts <- summarise(training_data,
+                          `Data partition` = "Training",
+                          `Positive Diabetes` = sum(class  == "Positive"),
+                `Negative Diabetes` = sum(class  == "Negative"))
+test_counts <- summarise(test_data,
+                         `Data partition` = "Test",
+                         `Positive Diabetes` = sum(class  == "Positive"),
+                `Negative Diabetes` = sum(class  == "Negative"))
+kable(bind_rows(train_counts, test_counts),
+      caption = "Table 2. Counts of observation for each class for each data partition.")
+```
+
+There seems to be an issue of class imbalance especially on the training set, but it is not that alarming, we have decided to immediately start our modeling plan with not addressing the class imbalance problem. But however, if during initial model building phase, there are indicators that the model makes a lot more mistakes on positive cases) then we will employ techniques that deals with class imbalance such as SMOTE, undersampling, and oversampling, in the hope that we will get better predictive models. 
+
+# Exploratory analysis on the training data set
+
+To look at whether each of the predictors might be useful to predict the diabetes class, we plotted the barplots of each predictor based on the target class from the training data set and colored the distribution by class (Negative: blue and positive: orange). Since the dataset has mostly categorical features and one numeric feature (age), we created a separate histogram for the `age` feature. Based on the histogram of the categorical predictors it seems the variables such as partial paresis, polydipsia, sudden weight loss, and polyuria seems to be significant in predicting diabetes cases. We will pay a close attention to this variables in the predictive models trained.
+
+Density plot for the `age` features in the Diabetes data set.
+```{r Age class distributions, fig.cap= "Figure 1. Distribution of training set age predictor for the Positive and Negative diabetes cases", out.width="70%", out.height="70%"}
+
+training_data %>% 
+      select(age,class) %>% 
+      gather(key = predictor, value = value, -class) %>% 
+      mutate( predictor = str_to_title(predictor))  %>% 
+      ggplot(aes(x = value, y = class, colour = class, fill = class)) +
+      geom_density_ridges(alpha = 0.8) +
+      ggtitle("Age") +
+      scale_fill_tableau() +
+      scale_colour_tableau() +
+      guides(fill = FALSE, color = FALSE) +
+      theme(axis.title.x = element_blank(),
+            axis.title.y = element_blank(),
+            plot.title = element_text(hjust = 0.5))
+```
+
+
+Histogram for the categorical features(predictors) in the Diabetes data set.
+```{r categorical predictor distributions, fig.width=8, fig.height=10, fig.cap= "Figure 2. Distribution of training set predictors for the Positive and Negative diabetes cases", out.width="70%"}
+
+training_data %>% select(-age) %>% 
+    gather(key = predictor, value = value, -class) %>% 
+    mutate(predictor = str_replace_all(predictor, "_", " "),
+           predictor = str_to_title(predictor)) %>% 
+    ggplot(aes(x= value, colour = class, fill = class)) +
+    facet_wrap(. ~ predictor, scale = "free", ncol = 5) +
+    geom_bar(position = "dodge")  +
+    scale_fill_tableau() +
+    scale_colour_tableau() +
+    theme(axis.title.x = element_blank(),
+          axis.title.y = element_blank())
+```
+
+
+
+# References

@@ -1,0 +1,66 @@
+---
+title: "Predicting diabete from patient's health information"
+author: "Sicheng Marc Sun, Heidi Ye </br>"
+date: "11/27/2020"
+always_allow_html: true
+output: 
+  github_document:
+    toc: true
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(knitr)
+```
+
+# Summary
+
+Here we apply three different classification models, decision tree, Gaussian Naïve Bayes and logistic regression to predict whether a patient has diabetes given features such as age, gender and any other existing conditions. The objective is to find the model that scores the highest f1 score for our target of having diabetes. 
+
+Our analysis shows that all three models performed well on an unseen test data set. The logistic regression model has the highest f1 score (defined by : $2\frac{precision*recall}{precision+recall}$) which is 0.97. The corresponding precision and recall are also 0.97. The two other models also performed well but have slightly lower scores than the logistic regression model. Based on these results, we can conclude that the logistic regression model is the optimal model for this classification problem. 
+
+
+# Introduction
+
+There are currently over 425 million people living with diabetes. With this number on the rise, and many cases going undiagnosed, it is increasingly crucial to be able to predict a diagnosis at an early stage  for intervention.
+
+A machine learning model that predicts whether a person has diabetes enables doctors to quickly identify and inform potential candidates that need to begin blood sugar testing.
+A simplistic and interpretable model can serve as a simple at home self-diagnosing method or help guide doctors on common traits that predict diabetes. 
+
+
+# Methods
+[python]
+
+## Data
+
+The dataset used for the analysis in the project is based on medical screening questions from the patients of Sylhet Diabetes Hospital in Bangladesh collected by M, IslamEmail, Rahatara Ferdousi, Sadikur Rahman and Yasmin Bushra. The dataset was sourced from the UCI Machine Learning Repository and can be found in here specifically this file.
+
+The data used for the project is collected by Sylhet Diabetes Hospital, by using direct questionnaires. The data set was sourced from the UCI Machine Learning Repository (Dua and Graff 2017) and can be found here. Each row of the dataset contains answser to some medical screening questions the patient was asked, and the last column tells whether the patient has diabete, and this is the reponse variable, the target we intend to predict.
+
+## Analysis
+
+The code used to perform the analysis and create this report can be found here: <https://github.com/UBC-MDS/DSCI522-2020-g22>
+
+# Result & Discussion
+
+```{r max horse table, message= FALSE, warning = FALSE}
+decisiontree <- read_csv("../results/model_scores/decisiontreeclassifier_hyperparameters.csv")
+kable(decisiontree,caption = 'Table 1')
+
+gaussiannb <- read_csv("../results/model_scores/gaussiannb_hyperparameters.csv")
+kable(gaussiannb,caption = 'Table 2')
+
+LR <- read_csv("../results/model_scores/logisticregression_hyperparameters.csv")
+kable(LR,caption = 'Table 3')
+
+f1 <- read_csv("../results/model_scores/test_f1_scores.csv")
+kable(f1,caption = 'Table 4')
+```
+
+![alt tag](../results/predictor_distributions.png)
+
+# Future direction
+
+# References
