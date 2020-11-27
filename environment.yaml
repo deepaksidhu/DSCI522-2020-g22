@@ -1,0 +1,9 @@
+name: project_dependencies
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pandas
+  - scikit-learn
+  - docopt
+prefix: /home/khashayar/miniconda3/envs/project_dependencies
