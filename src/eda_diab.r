@@ -51,9 +51,9 @@ main <- function(train, out_dir) {
     ggplot(aes(x = value, colour = class, fill = class)) +
     facet_wrap(. ~ predictor, scale = "free", ncol = 5) +
     geom_bar(position = "dodge") +
+    labs(color ="Class", fill = "Class") +
     scale_fill_tableau() +
     scale_colour_tableau() +
-    guides(fill = FALSE, color = FALSE) +
     theme(axis.title.x = element_blank(),
           axis.title.y = element_blank())
     ggsave(paste0(out_dir, "/categorical_distributions.png"), 
