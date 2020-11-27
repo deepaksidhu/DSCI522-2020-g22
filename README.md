@@ -23,11 +23,10 @@ The main objective of the exploratory data analysis (EDA) is to understand the d
 
 The second part of the EDA process is to perform data visualizations on the raw data. Part of this can be done through Pandas Profiling. The visualizations provided for each feature can help determine if there is class imbalance in the dataset. If so, the data cleaning process would require changes to the data or training methods. This is also a good opportunity to check if the numeric features are normally distributed or skewed in one direction. Again, this will give a better picture of how complete the data is and how representative the examples are of a general population. 
 
-After perfoming the EDA, and preprocessing steps we will create a pipeline and carry out cross validation with our three models on the training set, with the corresponding hyperparameter optimization. For the Decision Tree model, we will optimize for the the minimum level of decision splits (via max_depth). For Naive Bayes and the Logistic Regression, we will optimize for model complexity via the alpha and parameter C hyperparameters. Another aspect of our model to consider is if all the features necessarily play a role in predicting the target. We will be implementing forward selection to understand if certain features can be dropped without compromising the model score. 
+After perfoming the EDA, and preprocessing steps we will create a pipeline and carry out cross validation with our three models on the training set, with the corresponding hyperparameter optimization. For the Decision Tree model, we will optimize for the the maximum level of decision splits. For Naive Bayes and the Logistic Regression, we will tune the regularization hyperparameters. Another aspect of our model to consider is if all the features necessarily play a role in predicting the target. We will be implementing forward selection to understand if certain features can be dropped without compromising the model score. 
 
 Ultimately, we are intrested in the model with the highest f1 score. This takes into account model accuracy for both recall and precision. This is important since we are predicting for model accurary as well as protecting against false negatives. 
 
 The final results will consist of:
- * a decision tree diagram outlining the split of the features
- * a table summarizing the weighted importance of each feature
  * a table summarizing the accuracy of the model and hyperparameters that were used
+ * plots that show hyperparameter optimization through train and validation score
