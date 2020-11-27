@@ -14,10 +14,16 @@ python src/downloadData.py --file_path=https://archive.ics.uci.edu/ml/machine-le
 # clean, pre-process data
 python src/clean_data.py --file_path=data/raw_data.csv --saving_path=data/cleaned_data.csv
 
+# Split data into 80% train, 20% test
+python src/split_data.py --input_file_path=data/cleaned_data.csv --saving_path_train=data/train_data.csv --saving_path_test=data/test_data.csv --test_size=0.2
+
 # create exploratory data analysis figure and write to file 
 Rscript src/eda_diab.r --preprocessed=data/raw_data.csv --out_dir=results/
 
-# tune model
+# tune model and output results
+python src/model_train.py --train_data_path="data/train_data.csv" --test_data_path="data/test_data.csv" --save_dir_models="results/models/" --save_dir_results="results/model_scores/"
+
+
 
 # model results
 
