@@ -50,7 +50,7 @@ main <- function(train, out_dir) {
            predictor = str_to_title(predictor)) %>% 
     ggplot(aes(x = value, colour = class, fill = class)) +
     facet_wrap(. ~ predictor, scale = "free", ncol = 5) +
-    geom_bar() +
+    geom_bar(position = "dodge") +
     scale_fill_tableau() +
     scale_colour_tableau() +
     guides(fill = FALSE, color = FALSE) +
