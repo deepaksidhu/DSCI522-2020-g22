@@ -1,4 +1,4 @@
-name: project_dependencies
+name: DSCI522-2020-g22
 channels:
   - conda-forge
   - defaults
