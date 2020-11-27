@@ -1,0 +1,122 @@
+
+Diabetes Predictor
+==================
+
+-   contributors: Heidi Ye, Gurdeepak Sidhu, Marc Sun, Kevin Shahnazari
+
+Demo of a data analysis project for DSCI 522 (Data Science workflows); a
+course in the Master of Data Science program at the University of
+British Columbia.
+
+About
+-----
+
+We attempt to build three classification models, namely logistic
+regression, decision tree, and Naive Bayes model which can use the
+predictors from the diabetes dataset to predict for our positive class
+of having Daibetes. We compare the model predictive ability based on the
+f1 score. The logistic regression model performs the best with a mean f1
+score of approximately 0.97. The two other models perform well with f1
+scores of 0.93 and 0.91 for the decision tree and Naive Bayes
+respectively. The precision score is very satisfying, it shows that the
+model has the ability to eliminate most non-diabetes cases, which helps
+to save a lot of time in real life situations.
+
+The dataset used for the analysis in the project is based on medical
+screening questions from the patients of Sylhet Diabetes Hospital in
+Bangladesh collected by M, IslamEmail, Rahatara Ferdousi, Sadikur Rahman
+and Yasmin Bushra (M and Bushra 2019). The dataset was sourced from the
+UCI Machine Learning Repository (Dua and Graff 2017) specifically [this
+file](https://archive.ics.uci.edu/ml/machine-learning-databases/00529/diabetes_data_upload.csv).
+There are 520 observations in the data set, and 17 features. There are
+no observations with missing values in the data set. The number of
+observations in each classes are shown in the table below.
+
+Report
+------
+
+The final report can be found
+[here](https://github.com/UBC-MDS/DSCI522-2020-g22/blob/main/report/diabetes_predict_report.html).
+
+Usage
+-----
+
+To replicate the analysis, clone this GitHub repository, install the
+[dependencies](#dependencies) listed below, and run the following
+commands at the command line/terminal from the root directory of this
+project:
+
+    # download the data
+    python src/downloadData.py --file_path=https://archive.ics.uci.edu/ml/machine-learning-databases/00529/diabetes_data_upload.csv --saving_path=data/raw_data.csv
+
+    #run eda report
+    Rscript -e "rmarkdown::render('src/diabetes_eda.Rmd',output_format='github_document')"
+
+    # clean, pre-process data
+    python src/clean_data.py --file_path=data/raw_data.csv --saving_path=data/cleaned_data.csv
+
+    # Split data into 80% train, 20% test
+    python src/split_data.py --input_file_path=data/cleaned_data.csv --saving_path_train=data/train_data.csv --saving_path_test=data/test_data.csv --test_size=0.2
+
+    # create exploratory data analysis figure and write to file 
+    Rscript src/eda_diab.r --train=data/train_data.csv --out_dir=results/figures/
+
+    # tune model and output results
+    python src/model_train.py --train_data_path="data/train_data.csv" --test_data_path="data/test_data.csv" --save_dir_models="results/models/" --save_dir_results="results/model_scores/"
+
+
+    # model figures
+    Rscript src/model_figures.r --model=results/model_scores/ --save_figures=results/figures
+
+    # render final report
+    Rscript -e "rmarkdown::render('report/diabete_predict_report.Rmd', output_format = 'github_document') 
+
+Dependencies
+------------
+
+-   Python 3.8.3 and Python packages:
+    -   pandas==1.1.1
+    -   scikit-learn==0.23.2
+    -   docopt==0.6.2
+    -   matplotlib==3.3.3
+-   R version 3.6.1 and R packages:
+    -   knitr==1.26
+    -   docopt==0.7.1
+    -   tidyverse==1.3.0
+    -   ggridges==0.5.2
+    -   ggthemes==4.2.0
+    -   ggplot2==3.3.2
+    -   stringr==1.4.0
+
+License
+-------
+
+The Diabetes Analysis material here are licensed under the MIT LICENSE.
+Anyone can’t publish this repository as their own work and should give
+credit to the contributors of the project if the results of this project
+are being used.
+
+References
+==========
+
+<div id="refs" class="references hanging-indent">
+
+<div id="ref-Dua2019">
+
+Dua, Dheeru, and Casey Graff. 2017. “UCI Machine Learning Repository.”
+University of California, Irvine, School of Information; Computer
+Sciences. <http://archive.ics.uci.edu/ml>.
+
+</div>
+
+<div id="ref-Islametal">
+
+M, Rahatara Ferdousi, IslamEmail, and Yasmin Bushra. 2019. “Likelihood
+prediction of diabetes at early stage using data mining techniques.” In
+*Computer Vision and Machine Intelligence in Medical Image Analysis*,
+edited by Debanjan Konar Mousumi Gupta and Siddhartha Bhattacharyya, 1st
+ed., 113–25. International Society for Optics; Photonics; Springer.
+
+</div>
+
+</div>
