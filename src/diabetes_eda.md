@@ -1,8 +1,9 @@
 Exploratory data analysis of the Diabetes Risk dataset
 ================
+Gurdeepak Sidhu <br>
+November 28, 2020
 
-Summary of the data set
-=======================
+# Summary of the data set
 
 The dataset used for the analysis in the project is based on medical
 screening questions from the patients of Sylhet Diabetes Hospital in
@@ -21,20 +22,19 @@ values in the data set. The number of observations in each classes are
 shown in the table below.
 
 | Positive Diabetes | Negative Diabetes |
-|------------------:|------------------:|
+| ----------------: | ----------------: |
 |               320 |               200 |
 
 Table 1. Counts of observation for each class.
 
-Partition the data set into training and test sets
-==================================================
+# Partition the data set into training and test sets
 
 Before proceeding further, we will split the data such that 80% of
 observations are in the training and 20% of observations are in the test
 set. Below we list the counts of observations for each class:
 
 | Data partition | Positive Diabetes | Negative Diabetes |
-|:---------------|------------------:|------------------:|
+| :------------- | ----------------: | ----------------: |
 | Training       |               254 |               162 |
 | Test           |                66 |                38 |
 
@@ -49,8 +49,7 @@ employ techniques that deals with class imbalance such as SMOTE,
 undersampling, and oversampling, in the hope that we will get better
 predictive models.
 
-Exploratory analysis on the training data set
-=============================================
+# Exploratory analysis on the training data set
 
 To look at whether each of the predictors might be useful to predict the
 diabetes class, we plotted the barplots of each predictor based on the
@@ -68,9 +67,12 @@ Density plot for the `age` features in the Diabetes data set.
 <div class="figure">
 
 <img src="diabetes_eda_files/figure-gfm/Age class distributions-1.png" alt="Figure 1. Distribution of training set age predictor for the Positive and Negative diabetes cases" width="70%" height="70%" />
+
 <p class="caption">
+
 Figure 1. Distribution of training set age predictor for the Positive
 and Negative diabetes cases
+
 </p>
 
 </div>
@@ -81,15 +83,17 @@ set.
 <div class="figure">
 
 <img src="diabetes_eda_files/figure-gfm/categorical predictor distributions-1.png" alt="Figure 2. Distribution of training set predictors for the Positive and Negative diabetes cases" width="70%" />
+
 <p class="caption">
+
 Figure 2. Distribution of training set predictors for the Positive and
 Negative diabetes cases
+
 </p>
 
 </div>
 
-References
-==========
+# References
 
 <div id="refs" class="references hanging-indent">
 

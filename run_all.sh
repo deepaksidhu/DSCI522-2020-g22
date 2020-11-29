@@ -26,10 +26,9 @@ Rscript src/eda_diab.r --train=data/train_data.csv --out_dir=results/figures/
 # tune model and output results
 python src/model_train.py --train_data_path="data/train_data.csv" --test_data_path="data/test_data.csv" --save_dir_models="results/models/" --save_dir_results="results/model_scores/"
 
-
 # model figures
-Rscript src/model_figures.r --model=results/model_scores/ --save_figures=results/figures
+Rscript src/model_figures.r --model=results/model_scores/ --save_figures=results/figures/
 
 # render final report
-Rscript -e "rmarkdown::render('report/diabete_predict_report.Rmd', output_format = 'github_document') 
+Rscript -e "rmarkdown::render('report/diabetes_predict_report.Rmd', output_format = 'github_document')"
 
