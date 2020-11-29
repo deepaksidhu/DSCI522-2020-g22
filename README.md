@@ -66,10 +66,10 @@ project:
 
 
     # model figures
-    Rscript src/model_figures.r --model=results/model_scores/ --save_figures=results/figures
+    Rscript src/model_figures.r --model=results/model_scores/ --save_figures=results/figures/
 
     # render final report
-    Rscript -e "rmarkdown::render('report/diabete_predict_report.Rmd', output_format = 'github_document') 
+    Rscript -e "rmarkdown::render('report/diabetes_predict_report.Rmd', output_format = 'github_document') 
 
 Dependencies
 ------------
