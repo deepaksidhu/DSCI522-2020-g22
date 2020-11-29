@@ -20,9 +20,15 @@ theme_set(theme_minimal())
 opt <- docopt(doc)
 
 main <- function(train, out_dir) {
-  # Reading the train data
-  train_data <- read.csv(train)
   
+  #Checking if the file path exists or not
+  if (file.exists(train) ==TRUE){
+    # Reading the train data
+    train_data <- read.csv(train)
+  } else {
+    print("No such file exist, please check whether correct file path is entered")
+  }
+    
   # visualize  age predictor distribution by class
   age_plot <- train_data %>% 
     select(age,class) %>% 
@@ -37,10 +43,12 @@ main <- function(train, out_dir) {
     theme(axis.title.x = element_blank(),
           axis.title.y = element_blank(),
           plot.title = element_text(hjust = 0.5))
-    ggsave(paste0(out_dir, "/age_distributions.png"), 
+    ggsave(paste0(out_dir, "age_distributions.png"), 
          age_plot,
          width = 8, 
          height = 10)
+   
+   
   
   # visualize categorical predictor distributions by class
     categorical_plot <-  train_data %>% 
@@ -56,10 +64,10 @@ main <- function(train, out_dir) {
     scale_colour_tableau() +
     theme(axis.title.x = element_blank(),
           axis.title.y = element_blank())
-    ggsave(paste0(out_dir, "/categorical_distributions.png"), 
-         categorical_plot,
-         width = 8, 
-         height = 10)
+    ggsave(paste0(out_dir, "categorical_distributions.png"), 
+           categorical_plot,
+           width = 8, 
+           height = 10)
 }
 
 main(opt[["--train"]], opt[["--out_dir"]])
