@@ -53,7 +53,6 @@ To reset the repo to a clean state, with no intermediate or results files, run t
 
 `make clean`
 
-```
 
 ## Dependencies
 - Python 3.8.3 and Python packages:
@@ -69,6 +68,9 @@ To reset the repo to a clean state, with no intermediate or results files, run t
   - ggthemes==4.2.0
   - ggplot2==3.3.2
   - stringr==1.4.0
+  - caret==4.0.3
+  - reticulate==1.18
+- GNU make 4.2.1
   
 ## License
 The Diabetes Analysis material here are licensed under the MIT LICENSE. Anyone can't publish this repository as their own work and should give credit to the contributors of the project if the results of this project are being used.

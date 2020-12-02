@@ -1,15 +1,13 @@
 
-Diabetes Predictor
-==================
+# Diabetes Predictor
 
--   contributors: Heidi Ye, Gurdeepak Sidhu, Marc Sun, Kevin Shahnazari
+  - contributors: Heidi Ye, Gurdeepak Sidhu, Marc Sun, Kevin Shahnazari
 
 Demo of a data analysis project for DSCI 522 (Data Science workflows); a
 course in the Master of Data Science program at the University of
 British Columbia.
 
-About
------
+## About
 
 We attempt to build three classification models, namely logistic
 regression, decision tree, and Naive Bayes model which can use the
@@ -32,14 +30,12 @@ There are 520 observations in the data set, and 17 features. There are
 no observations with missing values in the data set. The number of
 observations in each classes are shown in the table below.
 
-Report
-------
+## Report
 
 The final report can be found
 [here](https://github.com/UBC-MDS/DSCI522-2020-g22/blob/main/report/diabetes_predict_report.html).
 
-Usage
------
+## Usage
 
 To replicate the analysis, clone this GitHub repository, install the
 [dependencies](#dependencies) listed below, and run the following
@@ -48,37 +44,39 @@ project:
 
 `make all`
 
-To reset the repo to a clean state, with no intermediate or results files, run the following command at the command line/terminal from the root directory of this project:
+To reset the repo to a clean state, with no intermediate or results
+files, run the following command at the command line/terminal from the
+root directory of this project:
 
 `make clean`
 
-Dependencies
-------------
+## Dependencies
 
--   Python 3.8.3 and Python packages:
-    -   pandas==1.1.1
-    -   scikit-learn==0.23.2
-    -   docopt==0.6.2
-    -   matplotlib==3.3.3
--   R version 3.6.1 and R packages:
-    -   knitr==1.26
-    -   docopt==0.7.1
-    -   tidyverse==1.3.0
-    -   ggridges==0.5.2
-    -   ggthemes==4.2.0
-    -   ggplot2==3.3.2
-    -   stringr==1.4.0
+  - Python 3.8.3 and Python packages:
+      - pandas==1.1.1
+      - scikit-learn==0.23.2
+      - docopt==0.6.2
+      - matplotlib==3.3.3
+  - R version 3.6.1 and R packages:
+      - knitr==1.26
+      - docopt==0.7.1
+      - tidyverse==1.3.0
+      - ggridges==0.5.2
+      - ggthemes==4.2.0
+      - ggplot2==3.3.2
+      - stringr==1.4.0
+      - caret==4.0.3
+      - reticulate==1.18
+  - GNU make 4.2.1
 
-License
--------
+## License
 
 The Diabetes Analysis material here are licensed under the MIT LICENSE.
 Anyone can’t publish this repository as their own work and should give
 credit to the contributors of the project if the results of this project
 are being used.
 
-References
-==========
+# References
 
 <div id="refs" class="references hanging-indent">
 
