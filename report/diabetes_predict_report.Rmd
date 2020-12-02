@@ -18,6 +18,11 @@ library(tidyverse)
 library(knitr)
 ```
 
+```{r}
+
+```
+
+
 # Summary
 
 Here we apply three different classification models, decision tree, Gaussian Naïve Bayes and logistic regression to predict whether a patient has diabetes given features such as age, gender and any other existing conditions. The objective is to find the model that scores the highest f1 score for our target of having diabetes.
@@ -84,7 +89,6 @@ decisiontree <- read_csv("../results/model_scores/decisiontreeclassifier_hyperpa
 colnames(decisiontree) <- str_to_title(colnames(decisiontree))
 colnames(decisiontree) <- str_replace_all(colnames(decisiontree), "_"," ")
 kable(decisiontree, caption = 'Table 1', digits = 4)
-
 ```
 
 The optimal hyperparameter is a maximum depth of the tree is `r decisiontree$"Max depth"[1]` and a minimum of `r decisiontree$"Min sample leaf"[1]` leaf since it returns the highest validation score of `r decisiontree$"Mean test score"[1]`. We can also see that the other three hyperparameter combinations return very similar scores with slightly slower mean fit times.
