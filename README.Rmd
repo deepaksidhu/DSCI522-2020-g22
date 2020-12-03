@@ -33,7 +33,15 @@ diabetes.columns = diabetes.columns.str.replace("\s+", "_")
 diabetes.columns = diabetes.columns.str.replace("\s+", "_").str.lower()
 ```
 
-We attempt to build three classification models, namely logistic regression, decision tree, and Naive Bayes model which can use the predictors from the diabetes dataset to predict for our positive class of having Daibetes. We compare the model predictive ability based on the f1 score. The logistic regression model performs the best with a mean f1 score of approximately 0.97. The two other models perform well with f1 scores of 0.93 and 0.91 for the decision tree and Naive Bayes respectively. The precision score is very satisfying, it shows that the model has the ability to eliminate most non-diabetes cases, which helps to save a lot of time in real life situations.
+```{r model , message= FALSE, warning = FALSE}
+f1 <- read_csv("results/model_scores/test_scores.csv") 
+f1 <- f1 %>% arrange(-f1_score) 
+f1$model_name[1:3] <- c("Logistic Regression", "Decision Tree", "Gaussian NB")
+
+colnames(f1) <- colnames(f1) %>% str_to_title() %>% str_replace_all("_"," ")
+```
+
+We attempt to build three classification models, namely logistic regression, decision tree, and Naive Bayes model which can use the predictors from the diabetes dataset to predict for our positive class of having Diabetes. We compare the model predictive ability based on the f1 score. The logistic regression model performs the best with a mean f1 score of approximately `r round(f1$"F1 score"[1],2)`. The two other models perform well with f1 scores of `r round(f1$"F1 score"[2],2)` and `r round(f1$"F1 score"[3],2)` for the decision tree and Naive Bayes respectively. The precision score is very satisfying, it shows that the model has the ability to eliminate most non-diabetes cases, which helps to save a lot of time in real life situations.
 
 The dataset used for the analysis in the project is based on medical screening questions from the patients of Sylhet Diabetes Hospital in Bangladesh collected by M, IslamEmail, Rahatara Ferdousi, Sadikur Rahman and Yasmin Bushra [@Islametal]. The dataset was sourced from the UCI Machine Learning Repository [@Dua2019] specifically [this file](https://archive.ics.uci.edu/ml/machine-learning-databases/00529/diabetes_data_upload.csv). There are `r nrow(py$diabetes)` observations in the data set, and `r ncol(py$diabetes)` features. There are no observations with missing values in the data set. The number of observations in each classes are shown in the table below.
 

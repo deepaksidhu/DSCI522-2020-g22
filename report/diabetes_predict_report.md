@@ -60,7 +60,8 @@ This Python programming language (Van Rossum and Drake 2009) and and the
 following packages were used to perform this analysis: SKLearn
 (Pedregosa et al. 2011) and Pandas (team 2020). The visualizations were
 done in the R programming language (R Core Team 2019) with the following
-packages: Tidyverse (Wickham 2017), Knitr (Xie 2014). Docopt (Keleshev
+packages: Tidyverse (Wickham 2017), Knitr (Xie 2014), Carat(Jed Wing et
+al. 2019), Reticulate (Ushey, Allaire, and Tang 2020). Docopt (Keleshev
 2014) in both R and Python were used.
 
 Data
@@ -151,16 +152,18 @@ and mimimum leaf values
 
 | Rank test score | Mean fit time | Max depth | Min samples leaf | Mean test score | Mean train score |
 |----------------:|--------------:|----------:|-----------------:|----------------:|-----------------:|
-|               1 |        0.0225 |         7 |                3 |          0.9626 |           0.9776 |
-|               2 |        0.0231 |         8 |                3 |          0.9626 |           0.9776 |
-|               3 |        0.0239 |         5 |                1 |          0.9605 |           0.9806 |
-|               4 |        0.0264 |         8 |                2 |          0.9603 |           0.9851 |
-|               5 |        0.0243 |         6 |                1 |          0.9588 |           0.9906 |
+|               1 |        0.0222 |         7 |                3 |          0.9607 |           0.9776 |
+|               2 |        0.0228 |         9 |                3 |          0.9602 |           0.9776 |
+|               3 |        0.0225 |         7 |                1 |          0.9590 |           0.9955 |
+|               4 |        0.0252 |         8 |                1 |          0.9584 |           0.9975 |
 
 Table 1
 
-The optimal hyperparameter is a maximum depth of the tree is eight and a
-minimum of one leaf.
+The optimal hyperparameter is a maximum depth of the tree is 7 and a
+minimum of 3 leaves since it returns the highest validation score of
+0.9606588. We can also see that the other three hyperparameter
+combinations return very similar scores with slightly slower mean fit
+times.
 
 Naive Bayes Hyperparameter Tuning
 ---------------------------------
@@ -179,17 +182,19 @@ Figure 4: Naive bayes hyperparameter optimization for variable smoothing
 
 | Rank test score | Mean fit time | Variable smoothing | Mean test score | Mean train score |
 |----------------:|--------------:|-------------------:|----------------:|-----------------:|
-|               1 |     0.0232873 |              1e-07 |       0.9034752 |        0.9087810 |
-|               1 |     0.0225630 |              1e-06 |       0.9034752 |        0.9087810 |
-|               1 |     0.0226877 |              1e-05 |       0.9034752 |        0.9087810 |
-|               1 |     0.0236643 |              1e-04 |       0.9034752 |        0.9087810 |
-|               1 |     0.0252959 |              1e-03 |       0.9034752 |        0.9092296 |
+|               1 |     0.0242809 |              1e-07 |       0.9034752 |        0.9087810 |
+|               1 |     0.0235641 |              1e-06 |       0.9034752 |        0.9087810 |
+|               1 |     0.0225689 |              1e-05 |       0.9034752 |        0.9087810 |
+|               1 |     0.0246938 |              1e-04 |       0.9034752 |        0.9087810 |
+|               1 |     0.0244143 |              1e-03 |       0.9034752 |        0.9092296 |
 
 Table 2
 
-The optimal hyperparameter seems to vary in this case as seen by the
-comparable validation and rank scores. This indicates that this model is
-not too sensitive to the tuning of this hyperparameter.
+The optimal hyperparameter with the Naive Bayes model is when the
+variable smoothing hyperparameter is set to 10^{-7}. It has a mean
+validation score of 0.9034752. Similar to decision trees, the next four
+highest ranking models seem to perform comparably. This indicates that
+this model may not too sensitive to the tuning of this hyperparameter.
 
 Logistic Regression Hyperparameter Tuning
 -----------------------------------------
@@ -209,16 +214,19 @@ C and Solver
 
 | Rank test score | Mean fit time |   C | Solver    | Mean test score | Mean train score |
 |----------------:|--------------:|----:|:----------|----------------:|-----------------:|
-|               1 |        0.0268 |  10 | liblinear |          0.9342 |           0.9467 |
-|               1 |        0.0309 |  10 | saga      |          0.9342 |           0.9467 |
-|               3 |        0.0365 |  10 | newton-cg |          0.9323 |           0.9467 |
-|               3 |        0.0328 |  10 | lbfgs     |          0.9323 |           0.9467 |
-|               3 |        0.0278 |  10 | sag       |          0.9323 |           0.9467 |
+|               1 |        0.0231 |  10 | liblinear |          0.9342 |           0.9467 |
+|               1 |        0.0339 |  10 | saga      |          0.9342 |           0.9467 |
+|               3 |        0.0398 |  10 | newton-cg |          0.9323 |           0.9467 |
+|               3 |        0.0334 |  10 | lbfgs     |          0.9323 |           0.9467 |
+|               3 |        0.0276 |  10 | sag       |          0.9323 |           0.9467 |
 
 Table 3
 
 The optimal hyperparameter is a regularization variable of 10 using the
-liblinear solver.
+liblinear solver. It has a mean validation score of 0.9342351. Similar
+to the two models above, the next four best ranking hyperparameter
+combinations have a very comparable score but again, our optimal model
+as the fastest fit time.
 
 Conclusion
 ----------
@@ -235,13 +243,12 @@ as follows:
 Table 4
 
 We can see that the logistic regression performs the best with a mean f1
-score of approximately 0.97. The two other models perform well with f1
-scores of 0.93 and 0.91 for the decision tree and Naive Bayes
+score of approximately 0.93. The two other models perform well with f1
+scores of 0.96 and 0.9 for the decision tree and Naive Bayes
 respectively.
 
-The precision score is very satisfying, it shows that the model has the
-ability to eliminate most non-diabetes cases, which helps to save a lot
-of time in real life situations.
+We can conclude that the logistic regression is the optimal model for
+the predicting a diabetes diagnosis with this dataset.
 
 Future directions:
 ------------------
@@ -278,6 +285,15 @@ ed., 113–25. International Society for Optics; Photonics; Springer.
 
 <div id="refs" class="references hanging-indent">
 
+<div id="ref-caret">
+
+Jed Wing, Max Kuhn. Contributions from, Steve Weston, Andre Williams,
+Chris Keefer, Allan Engelhardt, Tony Cooper, Zachary Mayer, et al. 2019.
+*Caret: Classification and Regression Training*.
+<https://CRAN.R-project.org/package=caret>.
+
+</div>
+
 <div id="ref-docopt">
 
 Keleshev, Vladimir. 2014. *Docopt* (version 0.6.2).
@@ -304,6 +320,13 @@ Computing*. Vienna, Austria: R Foundation for Statistical Computing.
 
 team, The pandas development. 2020. *Pandas-Dev/Pandas: Pandas* (version
 1.1.1). Zenodo. <https://doi.org/10.5281/zenodo.3993412>.
+
+</div>
+
+<div id="ref-reticulate">
+
+Ushey, Kevin, JJ Allaire, and Yuan Tang. 2020. *Reticulate: Interface to
+’Python’*. <https://CRAN.R-project.org/package=reticulate>.
 
 </div>
 
