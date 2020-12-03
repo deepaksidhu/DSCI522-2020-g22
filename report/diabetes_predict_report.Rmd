@@ -91,7 +91,7 @@ colnames(decisiontree) <- str_replace_all(colnames(decisiontree), "_"," ")
 kable(decisiontree, caption = 'Table 1', digits = 4)
 ```
 
-The optimal hyperparameter is a maximum depth of the tree is `r decisiontree$"Max depth"[1]` and a minimum of `r decisiontree$"Min sample leaf"[1]` leaf since it returns the highest validation score of `r decisiontree$"Mean test score"[1]`. We can also see that the other three hyperparameter combinations return very similar scores with slightly slower mean fit times.
+The optimal hyperparameter is a maximum depth of the tree is `r decisiontree$"Max depth"[1]` and a minimum of `r decisiontree$"Min samples leaf"[1]` leaves since it returns the highest validation score of `r decisiontree$"Mean test score"[1]`. We can also see that the other three hyperparameter combinations return very similar scores with slightly slower mean fit times.
 
 ## Naive Bayes Hyperparameter Tuning
 
