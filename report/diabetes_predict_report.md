@@ -152,18 +152,17 @@ and mimimum leaf values
 
 | Rank test score | Mean fit time | Max depth | Min samples leaf | Mean test score | Mean train score |
 |----------------:|--------------:|----------:|-----------------:|----------------:|-----------------:|
-|               1 |        0.0222 |         7 |                3 |          0.9607 |           0.9776 |
-|               2 |        0.0228 |         9 |                3 |          0.9602 |           0.9776 |
-|               3 |        0.0225 |         7 |                1 |          0.9590 |           0.9955 |
-|               4 |        0.0252 |         8 |                1 |          0.9584 |           0.9975 |
+|               1 |        0.0226 |         8 |                3 |          0.9646 |           0.9776 |
+|               2 |        0.0261 |         9 |                1 |          0.9627 |           0.9990 |
+|               3 |        0.0231 |         9 |                3 |          0.9623 |           0.9776 |
+|               4 |        0.0241 |         8 |                1 |          0.9606 |           0.9975 |
 
 Table 1
 
-The optimal hyperparameter is a maximum depth of the tree is 7 and a
+The optimal hyperparameter is a maximum depth of the tree is 8 and a
 minimum of 3 leaves since it returns the highest validation score of
-0.9606588. We can also see that the other three hyperparameter
-combinations return very similar scores with slightly slower mean fit
-times.
+0.96. We can also see that the other three hyperparameter combinations
+return very similar scores with slightly slower mean fit times.
 
 Naive Bayes Hyperparameter Tuning
 ---------------------------------
@@ -182,17 +181,17 @@ Figure 4: Naive bayes hyperparameter optimization for variable smoothing
 
 | Rank test score | Mean fit time | Variable smoothing | Mean test score | Mean train score |
 |----------------:|--------------:|-------------------:|----------------:|-----------------:|
-|               1 |     0.0242809 |              1e-07 |       0.9034752 |        0.9087810 |
-|               1 |     0.0235641 |              1e-06 |       0.9034752 |        0.9087810 |
-|               1 |     0.0225689 |              1e-05 |       0.9034752 |        0.9087810 |
-|               1 |     0.0246938 |              1e-04 |       0.9034752 |        0.9087810 |
-|               1 |     0.0244143 |              1e-03 |       0.9034752 |        0.9092296 |
+|               1 |     0.0230952 |              1e-07 |       0.9034752 |        0.9087810 |
+|               1 |     0.0238894 |              1e-06 |       0.9034752 |        0.9087810 |
+|               1 |     0.0236573 |              1e-05 |       0.9034752 |        0.9087810 |
+|               1 |     0.0262603 |              1e-04 |       0.9034752 |        0.9087810 |
+|               1 |     0.0237959 |              1e-03 |       0.9034752 |        0.9092296 |
 
 Table 2
 
 The optimal hyperparameter with the Naive Bayes model is when the
 variable smoothing hyperparameter is set to 10^{-7}. It has a mean
-validation score of 0.9034752. Similar to decision trees, the next four
+validation score of 0.903. Similar to decision trees, the next four
 highest ranking models seem to perform comparably. This indicates that
 this model may not too sensitive to the tuning of this hyperparameter.
 
@@ -214,19 +213,19 @@ C and Solver
 
 | Rank test score | Mean fit time |   C | Solver    | Mean test score | Mean train score |
 |----------------:|--------------:|----:|:----------|----------------:|-----------------:|
-|               1 |        0.0231 |  10 | liblinear |          0.9342 |           0.9467 |
-|               1 |        0.0339 |  10 | saga      |          0.9342 |           0.9467 |
-|               3 |        0.0398 |  10 | newton-cg |          0.9323 |           0.9467 |
-|               3 |        0.0334 |  10 | lbfgs     |          0.9323 |           0.9467 |
-|               3 |        0.0276 |  10 | sag       |          0.9323 |           0.9467 |
+|               1 |        0.0237 |  10 | liblinear |          0.9342 |           0.9467 |
+|               1 |        0.0321 |  10 | saga      |          0.9342 |           0.9467 |
+|               3 |        0.0354 |  10 | newton-cg |          0.9323 |           0.9467 |
+|               3 |        0.0333 |  10 | lbfgs     |          0.9323 |           0.9467 |
+|               3 |        0.0302 |  10 | sag       |          0.9323 |           0.9467 |
 
 Table 3
 
 The optimal hyperparameter is a regularization variable of 10 using the
-liblinear solver. It has a mean validation score of 0.9342351. Similar
-to the two models above, the next four best ranking hyperparameter
-combinations have a very comparable score but again, our optimal model
-as the fastest fit time.
+liblinear solver. It has a mean validation score of 0.93. Similar to the
+two models above, the next four best ranking hyperparameter combinations
+have a very comparable score but again, our optimal model as the fastest
+fit time.
 
 Conclusion
 ----------
@@ -243,8 +242,8 @@ as follows:
 Table 4
 
 We can see that the logistic regression performs the best with a mean f1
-score of approximately 0.93. The two other models perform well with f1
-scores of 0.96 and 0.9 for the decision tree and Naive Bayes
+score of approximately 0.97. The two other models perform well with f1
+scores of 0.94 and 0.91 for the decision tree and Naive Bayes
 respectively.
 
 We can conclude that the logistic regression is the optimal model for
