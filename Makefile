@@ -6,11 +6,11 @@
 # by creating three predictive models and comparing the accuracy of each model.
 # This script takes no arguments.
 #
-# Usage: make directory     # This is needed to create all the directories
+# 
 # Usage: make all           # To execute all the scripts to create figures,csv files and final report
 # Usage: clean
 
-all :  report/diabetes_predict_report.md  src/diabetes_eda.md
+all :  report/diabetes_predict_report.md 
 	
 # download the data
 data/raw_data.csv : src/downloadData.py 
@@ -24,9 +24,6 @@ data/cleaned_data.csv : data/raw_data.csv src/clean_data.py
 data/train_data.csv data/test_data.csv : data/cleaned_data.csv src/split_data.py 
 	python src/split_data.py --input_file_path=data/cleaned_data.csv --saving_path_train=data/train_data.csv --saving_path_test=data/test_data.csv --test_size=0.2
 
-#run eda report
-src/diabetes_eda.md : data/train_data.csv data/test_data.csv src/diabetes_eda.Rmd
-	Rscript -e "rmarkdown::render('src/diabetes_eda.Rmd',output_format='github_document')"
 
 # create exploratory data analysis figure and write to file 
 results/figures/age_distributions.png results/figures/categorical_distributions.png  : data/train_data.csv src/eda_diab.r
@@ -49,6 +46,5 @@ report/diabetes_predict_report.md : report/diabetes_predict_report.Rmd results/f
 
 clean :
 	rm -rf data/*
-	rm -rf src/diabetes_eda_files/ src/diabetes_eda.md
 	rm -rf results/*
 	rm -rf report/diabetes_predict_report.html report/diabetes_predict_report.md

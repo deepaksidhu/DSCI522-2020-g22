@@ -152,16 +152,16 @@ and mimimum leaf values
 
 | Rank test score | Mean fit time | Max depth | Min samples leaf | Mean test score | Mean train score |
 |----------------:|--------------:|----------:|-----------------:|----------------:|-----------------:|
-|               1 |        0.0226 |         8 |                3 |          0.9646 |           0.9776 |
-|               2 |        0.0261 |         9 |                1 |          0.9627 |           0.9990 |
-|               3 |        0.0231 |         9 |                3 |          0.9623 |           0.9776 |
-|               4 |        0.0241 |         8 |                1 |          0.9606 |           0.9975 |
+|               1 |        0.0226 |         7 |                3 |          0.9684 |           0.9776 |
+|               2 |        0.0218 |         9 |                3 |          0.9625 |           0.9776 |
+|               3 |        0.0258 |         9 |                1 |          0.9607 |           0.9990 |
+|               4 |        0.0246 |         5 |                2 |          0.9602 |           0.9781 |
 
 Table 1
 
-The optimal hyperparameter is a maximum depth of the tree is 8 and a
+The optimal hyperparameter is a maximum depth of the tree is 7 and a
 minimum of 3 leaves since it returns the highest validation score of
-0.96. We can also see that the other three hyperparameter combinations
+0.97. We can also see that the other three hyperparameter combinations
 return very similar scores with slightly slower mean fit times.
 
 Naive Bayes Hyperparameter Tuning
@@ -181,11 +181,11 @@ Figure 4: Naive bayes hyperparameter optimization for variable smoothing
 
 | Rank test score | Mean fit time | Variable smoothing | Mean test score | Mean train score |
 |----------------:|--------------:|-------------------:|----------------:|-----------------:|
-|               1 |     0.0230952 |              1e-07 |       0.9034752 |        0.9087810 |
-|               1 |     0.0238894 |              1e-06 |       0.9034752 |        0.9087810 |
-|               1 |     0.0236573 |              1e-05 |       0.9034752 |        0.9087810 |
-|               1 |     0.0262603 |              1e-04 |       0.9034752 |        0.9087810 |
-|               1 |     0.0237959 |              1e-03 |       0.9034752 |        0.9092296 |
+|               1 |     0.0240378 |              1e-07 |       0.9034752 |        0.9087810 |
+|               1 |     0.0227996 |              1e-06 |       0.9034752 |        0.9087810 |
+|               1 |     0.0229479 |              1e-05 |       0.9034752 |        0.9087810 |
+|               1 |     0.0244007 |              1e-04 |       0.9034752 |        0.9087810 |
+|               1 |     0.0223016 |              1e-03 |       0.9034752 |        0.9092296 |
 
 Table 2
 
@@ -213,11 +213,11 @@ C and Solver
 
 | Rank test score | Mean fit time |   C | Solver    | Mean test score | Mean train score |
 |----------------:|--------------:|----:|:----------|----------------:|-----------------:|
-|               1 |        0.0237 |  10 | liblinear |          0.9342 |           0.9467 |
-|               1 |        0.0321 |  10 | saga      |          0.9342 |           0.9467 |
-|               3 |        0.0354 |  10 | newton-cg |          0.9323 |           0.9467 |
-|               3 |        0.0333 |  10 | lbfgs     |          0.9323 |           0.9467 |
-|               3 |        0.0302 |  10 | sag       |          0.9323 |           0.9467 |
+|               1 |        0.0228 |  10 | liblinear |          0.9342 |           0.9467 |
+|               1 |        0.0325 |  10 | saga      |          0.9342 |           0.9467 |
+|               3 |        0.0363 |  10 | newton-cg |          0.9323 |           0.9467 |
+|               3 |        0.0327 |  10 | lbfgs     |          0.9323 |           0.9467 |
+|               3 |        0.0290 |  10 | sag       |          0.9323 |           0.9467 |
 
 Table 3
 
@@ -236,14 +236,14 @@ as follows:
 | Model name          | F1 score | Recall score | Precision score | Accuracy |
 |:--------------------|---------:|-------------:|----------------:|---------:|
 | Logistic Regression |   0.9697 |       0.9697 |          0.9697 |   0.9615 |
-| Decision Tree       |   0.9355 |       0.8788 |          1.0000 |   0.9231 |
+| Decision Tree       |   0.9524 |       0.9091 |          1.0000 |   0.9423 |
 | Gaussian NB         |   0.9104 |       0.9242 |          0.8971 |   0.8846 |
 
 Table 4
 
 We can see that the logistic regression performs the best with a mean f1
 score of approximately 0.97. The two other models perform well with f1
-scores of 0.94 and 0.91 for the decision tree and Naive Bayes
+scores of 0.95 and 0.91 for the decision tree and Naive Bayes
 respectively.
 
 We can conclude that the logistic regression is the optimal model for
