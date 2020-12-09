@@ -45,6 +45,13 @@ We attempt to build three classification models, namely logistic regression, dec
 
 The dataset used for the analysis in the project is based on medical screening questions from the patients of Sylhet Diabetes Hospital in Bangladesh collected by M, IslamEmail, Rahatara Ferdousi, Sadikur Rahman and Yasmin Bushra [@Islametal]. The dataset was sourced from the UCI Machine Learning Repository [@Dua2019] specifically [this file](https://archive.ics.uci.edu/ml/machine-learning-databases/00529/diabetes_data_upload.csv). There are `r nrow(py$diabetes)` observations in the data set, and `r ncol(py$diabetes)` features. There are no observations with missing values in the data set. The number of observations in each classes are shown in the table below.
 
+```{r class counts}
+kable(summarise(py$diabetes,
+                `Positive Diabetes` = sum(class  == "Positive"),
+                `Negative Diabetes` = sum(class  == "Negative")),
+      caption = "Table 1. Counts of observation for each class.")
+```
+
 ## Report
 The final report can be found [here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/UBC-MDS/DSCI522-2020-g22/main/docs/diabetes_predict_report.html).
 
