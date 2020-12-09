@@ -10,7 +10,7 @@
 # Usage: make all           # To execute all the scripts to create figures,csv files and final report
 # Usage: clean
 
-all :  report/diabetes_predict_report.md 
+all :  docs/diabetes_predict_report.md 
 	
 # download the data
 data/raw_data.csv : src/downloadData.py 
@@ -36,15 +36,16 @@ results/models/decisiontreeclassifier results/models/gaussiannb results/models/l
 	if [ ! -d "results/models" ] ; then mkdir results/models; fi
 	python src/model_train.py --train_data_path="data/train_data.csv" --test_data_path="data/test_data.csv" --save_dir_models="results/models/" --save_dir_results="results/model_scores/"
 
+# create model figures based on model results
 results/figures/decision_tree.png results/figures/gaussian_hyperparameter.png results/figures/logistic_reg.png : results/model_scores/decisiontreeclassifier_hyperparameters.csv results/model_scores/gaussiannb_hyperparameters.csv results/model_scores/logisticregression_hyperparameters.csv src/model_figures.r 
 	if [ ! -d "results/figures" ] ; then mkdir results/figures; fi
 	Rscript src/model_figures.r --model=results/model_scores/ --save_figures=results/figures
 
 # render final report
-report/diabetes_predict_report.md : report/diabetes_predict_report.Rmd results/figures/decision_tree.png results/figures/gaussian_hyperparameter.png results/figures/logistic_reg.png results/model_scores/decisiontreeclassifier_hyperparameters.csv results/model_scores/gaussiannb_hyperparameters.csv results/model_scores/logisticregression_hyperparameters.csv results/model_scores/test_scores.csv results/figures/age_distributions.png results/figures/categorical_distributions.png 
-	Rscript -e "rmarkdown::render('report/diabetes_predict_report.Rmd', output_format = 'github_document')"
+docs/diabetes_predict_report.md : docs/diabetes_predict_report.Rmd results/figures/decision_tree.png results/figures/gaussian_hyperparameter.png results/figures/logistic_reg.png results/model_scores/decisiontreeclassifier_hyperparameters.csv results/model_scores/gaussiannb_hyperparameters.csv results/model_scores/logisticregression_hyperparameters.csv results/model_scores/test_scores.csv results/figures/age_distributions.png results/figures/categorical_distributions.png 
+	Rscript -e "rmarkdown::render('docs/diabetes_predict_report.Rmd', output_format = 'github_document')"
 
 clean :
 	rm -rf data/*
 	rm -rf results/*
-	rm -rf report/diabetes_predict_report.html report/diabetes_predict_report.md
+	rm -rf doc/diabetes_predict_report.html doc/diabetes_predict_report.md
