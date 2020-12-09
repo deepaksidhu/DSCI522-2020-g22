@@ -33,7 +33,7 @@ observations in each classes are shown in the table below.
 ## Report
 
 The final report can be found
-[here](https://github.com/UBC-MDS/DSCI522-2020-g22/blob/main/report/diabetes_predict_report.html).
+[here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/UBC-MDS/DSCI522-2020-g22/main/docs/diabetes_predict_report.html).
 
 ## Usage
 
@@ -44,23 +44,19 @@ There are two suggested ways to run this analysis:
 *note - the instructions in this section depends on running this in a
 unix shell either Git Bash or terminal*
 
-1.  Install [Docker](https://www.docker.com/get-started).
-2.  Download or clone this repository.
-3.  Open a terminal session and navigate to the root of the project
-    directory.
-4.  Run the analysis with the following command:
+To run this analysis using Docker, clone/download this repository, use
+the command line to navigate to the root of this project on your
+computer, and then type the following (filling in
+PATH\_ON\_YOUR\_COMPUTER with the absolute path to the root of this
+project on your computer).
 
-<!-- end list -->
-
-``` 
-```
+    docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/data_analysis_eg ttimbers/data_analysis_pipeline_eg make -C '/home/data_analysis_eg' all
 
 To reset the repo to a clean state, with no intermediate or results
 files, run the following command at the command line/terminal from the
 root directory of this project:
 
-``` 
-```
+    docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/data_analysis_eg ttimbers/data_analysis_pipeline_eg make -C '/home/data_analysis_eg' clean
 
 #### 2\. Without using Docker
 
