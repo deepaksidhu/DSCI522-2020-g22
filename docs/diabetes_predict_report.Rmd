@@ -9,7 +9,7 @@ output:
   github_document:
     toc: yes
 always_allow_html: yes
-bibliography: ../doc/diabetes_references.bib
+bibliography: ../docs/diabetes_references.bib
 ---
 
 ```{r setup, include=FALSE}
