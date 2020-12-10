@@ -25,3 +25,5 @@ ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/lib/
 ENV export LD_LIBRARY_PATH
 
 RUN Rscript -e 'install.packages("tidyverse")'
+
+RUN conda create -n r-reticulate python=3.8 pandas=1.1.3 -y
