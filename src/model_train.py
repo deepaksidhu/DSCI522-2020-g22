@@ -119,8 +119,8 @@ class model_result_generator:
 
         model_names = ["decision_tree", "GaussianNB", "logisticregression"]
         models = [
-            DecisionTreeClassifier(),
-            GaussianNB(),
+            DecisionTreeClassifier(random_state = 123),
+        GaussianNB(),
             LogisticRegression(random_state=123, max_iter=1000),
         ]
         decision_tree_pipe_hyperparamters = {

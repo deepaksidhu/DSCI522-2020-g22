@@ -48,4 +48,4 @@ docs/diabetes_predict_report.md : docs/diabetes_predict_report.Rmd results/figur
 clean :
 	rm -rf data/*
 	rm -rf results/*
-	rm -rf doc/diabetes_predict_report.html doc/diabetes_predict_report.md
+	rm -rf docs/diabetes_predict_report.html docs/diabetes_predict_report.md

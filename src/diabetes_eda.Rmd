@@ -3,7 +3,7 @@ title: "Exploratory data analysis of the Diabetes Risk dataset"
 author: "Gurdeepak Sidhu <br>"
 date: "November 28, 2020"
 output: github_document
-bibliography: ../doc/diabetes_references.bib
+bibliography: ../docs/diabetes_references.bib
 ---
 
 ```{r setup, include=FALSE}

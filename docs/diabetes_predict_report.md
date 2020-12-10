@@ -152,14 +152,14 @@ and mimimum leaf values
 
 | Rank test score | Mean fit time | Max depth | Min samples leaf | Mean test score | Mean train score |
 |----------------:|--------------:|----------:|-----------------:|----------------:|-----------------:|
-|               1 |        0.0305 |         9 |                1 |          0.9605 |           0.9990 |
-|               2 |        0.0264 |         8 |                3 |          0.9604 |           0.9776 |
-|               3 |        0.0389 |         7 |                2 |          0.9604 |           0.9851 |
-|               4 |        0.0287 |         9 |                3 |          0.9603 |           0.9776 |
+|               1 |        0.0227 |         7 |                1 |          0.9607 |           0.9955 |
+|               2 |        0.0226 |         7 |                3 |          0.9605 |           0.9776 |
+|               2 |        0.0237 |         8 |                3 |          0.9605 |           0.9776 |
+|               2 |        0.0233 |         9 |                3 |          0.9605 |           0.9776 |
 
 Table 1
 
-The optimal hyperparameter is a maximum depth of the tree is 9 and a
+The optimal hyperparameter is a maximum depth of the tree is 7 and a
 minimum of 1 leaves since it returns the highest validation score of
 0.96. We can also see that the other three hyperparameter combinations
 return very similar scores with slightly slower mean fit times.
@@ -181,11 +181,11 @@ Figure 4: Naive bayes hyperparameter optimization for variable smoothing
 
 | Rank test score | Mean fit time | Variable smoothing | Mean test score | Mean train score |
 |----------------:|--------------:|-------------------:|----------------:|-----------------:|
-|               1 |     0.0238961 |              1e-07 |       0.9034752 |        0.9087810 |
-|               1 |     0.0238251 |              1e-06 |       0.9034752 |        0.9087810 |
-|               1 |     0.0350187 |              1e-05 |       0.9034752 |        0.9087810 |
-|               1 |     0.0315006 |              1e-04 |       0.9034752 |        0.9087810 |
-|               1 |     0.0262898 |              1e-03 |       0.9034752 |        0.9092296 |
+|               1 |     0.0243276 |              1e-07 |       0.9034752 |        0.9087810 |
+|               1 |     0.0240662 |              1e-06 |       0.9034752 |        0.9087810 |
+|               1 |     0.0229340 |              1e-05 |       0.9034752 |        0.9087810 |
+|               1 |     0.0227625 |              1e-04 |       0.9034752 |        0.9087810 |
+|               1 |     0.0262338 |              1e-03 |       0.9034752 |        0.9092296 |
 
 Table 2
 
@@ -213,11 +213,11 @@ C and Solver
 
 | Rank test score | Mean fit time |   C | Solver    | Mean test score | Mean train score |
 |----------------:|--------------:|----:|:----------|----------------:|-----------------:|
-|               1 |        0.0238 |  10 | liblinear |          0.9342 |           0.9467 |
-|               1 |        0.0336 |  10 | saga      |          0.9342 |           0.9467 |
-|               3 |        0.0364 |  10 | newton-cg |          0.9323 |           0.9467 |
-|               3 |        0.0350 |  10 | lbfgs     |          0.9323 |           0.9467 |
-|               3 |        0.0289 |  10 | sag       |          0.9323 |           0.9467 |
+|               1 |        0.0242 |  10 | liblinear |          0.9342 |           0.9467 |
+|               1 |        0.0329 |  10 | saga      |          0.9342 |           0.9467 |
+|               3 |        0.0503 |  10 | newton-cg |          0.9323 |           0.9467 |
+|               3 |        0.0341 |  10 | lbfgs     |          0.9323 |           0.9467 |
+|               3 |        0.0281 |  10 | sag       |          0.9323 |           0.9467 |
 
 Table 3
 
@@ -236,7 +236,7 @@ as follows:
 | Model name          | F1 score | Recall score | Precision score | Accuracy |
 |:--------------------|---------:|-------------:|----------------:|---------:|
 | Logistic Regression |   0.9697 |       0.9697 |          0.9697 |   0.9615 |
-| Decision Tree       |   0.9160 |       0.9091 |          0.9231 |   0.8942 |
+| Decision Tree       |   0.9231 |       0.9091 |          0.9375 |   0.9038 |
 | Gaussian NB         |   0.9104 |       0.9242 |          0.8971 |   0.8846 |
 
 Table 4
