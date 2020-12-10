@@ -62,7 +62,7 @@ Report
 ------
 
 The final report can be found
-[here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/deepaksidhu/DSCI522-2020-g22/main/docs/diabetes_predict_report.html).
+[here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/UBC-MDS/DSCI522-2020-g22/main/docs/diabetes_predict_report.html).
 
 Usage
 -----
