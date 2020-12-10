@@ -41,7 +41,7 @@ A machine learning model that predicts whether a person has diabetes enables doc
 
 # Methods
 
-This Python programming language [\@Python] and and the following packages were used to perform this analysis: SKLearn [\@scikit-learn] and Pandas [\@reback2020pandas]. The visualizations were done in the R programming language [\@R] with the following packages: Tidyverse [\@tidyverse], Knitr [\@knitr], Carat[\@caret], Reticulate [\@reticulate]. Docopt [\@docopt] in both R and Python were used.
+This Python programming language [@Python] and and the following packages were used to perform this analysis: SKLearn [@scikit-learn] and Pandas [@reback2020pandas]. The visualizations were done in the R programming language [@R] with the following packages: Tidyverse [@tidyverse], Knitr [@knitr], Carat[@caret], Reticulate [@reticulate]. Docopt [@docopt] in both R and Python were used.
 
 # Data
 
