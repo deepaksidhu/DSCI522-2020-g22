@@ -10,7 +10,7 @@
 # Usage: make all           # To execute all the scripts to create figures,csv files and final report
 # Usage: clean
 
-all :  docs/diabetes_predict_report.md 
+all :  docs/diabetes_predict_report.md results/figures/age_distributions.png results/figures/categorical_distributions.png
 	
 # download the data
 data/raw_data.csv : src/downloadData.py 
@@ -42,7 +42,7 @@ results/figures/decision_tree.png results/figures/gaussian_hyperparameter.png re
 	Rscript src/model_figures.r --model=results/model_scores/ --save_figures=results/figures
 
 # render final report
-docs/diabetes_predict_report.md : docs/diabetes_predict_report.Rmd results/figures/decision_tree.png results/figures/gaussian_hyperparameter.png results/figures/logistic_reg.png results/model_scores/decisiontreeclassifier_hyperparameters.csv results/model_scores/gaussiannb_hyperparameters.csv results/model_scores/logisticregression_hyperparameters.csv results/model_scores/test_scores.csv results/figures/age_distributions.png results/figures/categorical_distributions.png 
+docs/diabetes_predict_report.md : docs/diabetes_predict_report.Rmd results/figures/decision_tree.png results/figures/gaussian_hyperparameter.png results/figures/logistic_reg.png results/model_scores/decisiontreeclassifier_hyperparameters.csv results/model_scores/gaussiannb_hyperparameters.csv results/model_scores/logisticregression_hyperparameters.csv results/model_scores/test_scores.csv  
 	Rscript -e "rmarkdown::render('docs/diabetes_predict_report.Rmd', output_format = 'github_document')"
 
 clean :
