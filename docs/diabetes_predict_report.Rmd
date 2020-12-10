@@ -18,7 +18,6 @@ library(tidyverse)
 library(knitr)
 ```
 
-
 ```{r model , message= FALSE, warning = FALSE}
 
 f1 <- read_csv("../results/model_scores/test_scores.csv") 
@@ -32,7 +31,7 @@ colnames(f1) <- colnames(f1) %>% str_to_title() %>% str_replace_all("_"," ")
 
 Here we apply three different classification models, decision tree, Gaussian Naïve Bayes and logistic regression to predict whether a patient has diabetes given features such as age, gender and any other existing conditions. The objective is to find the model that scores the highest f1 score for our target of having diabetes.
 
-Our analysis shows that all three models performed well on an unseen test data set. The logistic regression model has the highest f1 score (defined by : $f1 = \frac{2 \cdot precision \cdot recall}{precision+ recall}$) which is `r round(f1$"F1 score"[1],2)`. The corresponding precision and recall are also `r round(f1$"Recall score"[1],2)`. The two other models also performed well but have slightly lower scores than the logistic regression model. Based on these results, we can conclude that the logistic regression model is the optimal model for this classification problem.
+Our analysis shows that all three models performed well on an unseen test data set. The logistic regression model has the highest f1 score (defined by : $f1 = \\frac{2 \\cdot precision \\cdot recall}{precision+ recall}$) which is `r round(f1$"F1 score"[1],2)`. The corresponding precision and recall are also `r round(f1$"Recall score"[1],2)`. The two other models also performed well but have slightly lower scores than the logistic regression model. Based on these results, we can conclude that the logistic regression model is the optimal model for this classification problem.
 
 # Introduction
 
@@ -42,7 +41,7 @@ A machine learning model that predicts whether a person has diabetes enables doc
 
 # Methods
 
-This Python programming language [@Python] and and the following packages were used to perform this analysis: SKLearn [@scikit-learn] and Pandas [@reback2020pandas]. The visualizations were done in the R programming language [@R] with the following packages: Tidyverse [@tidyverse], Knitr [@knitr], Carat[@caret], Reticulate [@reticulate]. Docopt [@docopt] in both R and Python were used. 
+This Python programming language [\@Python] and and the following packages were used to perform this analysis: SKLearn [\@scikit-learn] and Pandas [\@reback2020pandas]. The visualizations were done in the R programming language [\@R] with the following packages: Tidyverse [\@tidyverse], Knitr [\@knitr], Carat[\@caret], Reticulate [\@reticulate]. Docopt [\@docopt] in both R and Python were used.
 
 # Data
 
@@ -52,36 +51,33 @@ The data used for the project is collected by Sylhet Diabetes Hospital, by using
 
 # Analysis
 
-The code used to perform the analysis and create this report can be found [here.](https://github.com/UBC-MDS/DSCI522-2020-g22)
+The code used to perform the analysis and create this report can be found in the repository [here.](https://github.com/UBC-MDS/DSCI522-2020-g22)
 
 # Exploratory Data Analysis
 
-Our exploratory data analysis indicates that we have 16 features and 520 observations. With the exception of age, which is a numeric feature, the remaining are binary and categorical in nature. Since there is no missing data, the main transformations that are required is one hot encoding for the category features and scaling for the numeric features.
+We begin by splitting our data into 80% training and 20% testing respectively. We perform our exploratory data analysis using just the training portion.
 
-With 320 observations in the positive class (has diabetes) and 200 observations in the negative class, there doesn't appear to be any severe class imbalance in the data. The plots below break down the distribution of positive and negative classes by feature. Since age is the only numeric feature, we also look at the distribution to see how representative the data is of a population. In general, is no severe class imbalance by any one feature which would influence how we train our model.
+Initially, we can see that we have 16 features and 520 observations. With the exception of age, which is a numeric feature, the remaining are binary and categorical in nature. Since there is no missing data, the main transformations that are required is one hot encoding for the categorical features and scaling for the numeric features.
 
-```{r  Categorical features distribution figure, fig.align = "left",fig.width=1, fig.height=1, fig.cap= "Figure 1: Categorical features distribution based on the Diabetes and No Diabetes class", out.width="60%", out.height="10%"}
-knitr::include_graphics("../results/figures/categorical_distributions.png")
-```
-
-```{r Age distribution figure, fig.align = "left",fig.width=3, fig.height=1, fig.cap= "Figure 2: Age feature distribution based on the Diabetes and No Diabetes class", out.width="50%", out.height="30%"}
-knitr::include_graphics("../results/figures/age_distributions.png")
-```
-
+With 320 observations in the positive class (has diabetes) and 200 observations in the negative class, there doesn't appear to be any severe class imbalance in the data. Our EDA also indicates that there are no major class imbalance issues on a feature by feature basis. The dataset also does not appear to have any features that seem inappropriate to train with. In general, our dataset came fairly clean and prepared for training without too much additional preprocessing.
 
 # Result & Discussion
 
-Once the data is split 80% for training and 20% for testing respectively, it is trained on three models: decision tree, Naive Bayes and logistic regression. The optimal hyperparameters for each model and their corresponding training and validation scores can be seen in the plots below.
+We use our 80% split of the training data to train three models: decision tree, Naive Bayes and logistic regression. These models were selected mainly for its simplicity in interpretation. In addition, we were interested in the difference in scoring between a probabilistic and linear model and if one approach would fit the data better than another. The objective is the find the most interpretable model that can accurately predict for diabetes in this dataset. 
+
+Initially, the scoring metric used for this analysis was recall, since protecting against false positives is particularly important in predicting disease. However, since many of the features in this dataset are binary, scoring based on recall was consistently overfitting and returning perfect model scores across all models. From these preliminary results, we shifted our scoring method to the f1 score which better balanced recall and precision.
+
+The optimal hyperparameters for each model and their corresponding training and validation scores can be seen in the plots below.
 
 ## Decision Tree Hyperparameter Tuning
-We have the figure results of the hyperparameter tuning for Maximum depth and Minimum sample leaves for the Decision Tree Classifier.
 
-```{r Decision tree hyperparameter figure, fig.align = "center",fig.width=3, fig.height=1, fig.cap= "Figure 3: Decision Tree hyperparameter optimization for maximum depth and mimimum leaf values", out.width="40%", out.height="30%"}
+The figures below show the top four performing decision tree models tuned for the maximum tree depth. The plots show the fixed (optimized) tree depth, while varying for the second hyperparameter, sample leaves. The blue lines indicate the mean train score and the red lines indicate the mean validation score.   
+
+```{r Decision tree hyperparameter figure, fig.align = "center",fig.width=5, fig.height=2, fig.cap= "Figure 3: Decision Tree hyperparameter optimization for maximum depth and mimimum leaf values", out.width="80%", out.height="60%"}
 knitr::include_graphics("../results/figures/decision_tree.png")
 ```
 
-
-```{r Decision Tree Results, message= FALSE, warning = FALSE}
+```{r Decision Tree Results, message= FALSE, warning = FALSE, results = 'hide'}
 decisiontree <- read_csv("../results/model_scores/decisiontreeclassifier_hyperparameters.csv") %>%   
   select(mean_fit_time,param_decisiontreeclassifier__max_depth,
          param_decisiontreeclassifier__min_samples_leaf,
@@ -96,18 +92,19 @@ colnames(decisiontree) <- str_replace_all(colnames(decisiontree), "_"," ")
 kable(decisiontree, caption = 'Table 1', digits = 4)
 ```
 
-The optimal hyperparameter is a maximum depth of the tree is `r decisiontree$"Max depth"[1]` and a minimum of `r decisiontree$"Min samples leaf"[1]` leaves since it returns the highest validation score of `r round(decisiontree$"Mean test score"[1],2)`. We can also see that the other three hyperparameter combinations return very similar scores with slightly slower mean fit times.
+We can see that the optimal hyperparameter is a maximum depth of the tree is `r decisiontree$"Max depth"[1]` and a minimum of `r decisiontree$"Min samples leaf"[1]` leaves since it returns the highest validation score of `r round(decisiontree$"Mean test score"[1],2)`. We can also see that the other three hyperparameter combinations return very similar scores with slightly slower mean fit times.
+
+Our initial hypothesis was that the decision tree model would be one of the most interpretable models with easy to visualize decision splits. However, with the optimal model having a depth of `r decisiontree$"Max depth"[1]`, it's likely a little to complicated for day to day use. 
 
 ## Naive Bayes Hyperparameter Tuning
 
-We have the figure results of the hyperparameter tuning of Variable smoothing of the Naive Bayes model below.
+Below, we have the figure results of the hyperparameter tuning of variable smoothing of the Naive Bayes model. Again, the blue line indicates the mean train score and the red line indicates the mean validation score. 
 
-```{r Naive Bayes hyperparameter figure, fig.align = "center",fig.width=3, fig.height=1, fig.cap= "Figure 4: Naive bayes hyperparameter optimization for variable smoothing", out.width="40%", out.height="30%"}
+```{r Naive Bayes hyperparameter figure, fig.align = "center",fig.width=3, fig.height=0.5, fig.cap= "Figure 4: Naive bayes hyperparameter optimization for variable smoothing", out.width="80%", out.height="10%"}
 knitr::include_graphics("../results/figures/gaussian_hyperparameter.png")
 ```
 
-
-```{r Naive Bayes Results, message= FALSE, warning = FALSE}
+```{r Naive Bayes Results, message= FALSE, warning = FALSE, results = 'hide'}
 gaussiannb <- read_csv("../results/model_scores/gaussiannb_hyperparameters.csv")%>%   
   select(mean_fit_time,	param_gaussiannb__var_smoothing,mean_test_score,rank_test_score,mean_train_score)%>%
   rename(variable_smoothing = param_gaussiannb__var_smoothing) %>% 
@@ -119,19 +116,17 @@ kable(gaussiannb,caption = 'Table 2', digits = 7)
 
 ```
 
-The optimal hyperparameter with the Naive Bayes model is when the variable smoothing hyperparameter is set to `r gaussiannb$"Variable smoothing"[1]`. It has a mean validation score of `r round(gaussiannb$"Mean test score"[1],3)`. Similar to decision trees, the next four highest ranking models seem to perform comparably. This indicates that this model may not too sensitive to the tuning of this hyperparameter. 
+The optimal hyperparameter with the Naive Bayes model is when the variable smoothing hyperparameter is set to `r gaussiannb$"Variable smoothing"[1]`. It has a mean validation score of `r round(gaussiannb$"Mean test score"[1],3)`. Similar to decision trees, the next four highest ranking models (not shown above) seem to perform comparably. This indicates that this model may not too sensitive to the tuning of this hyperparameter.
 
 ## Logistic Regression Hyperparameter Tuning
 
 We have the figure results of the hyperparameter tuning of C (controls model complexity) and Solver of the Logistic Regression model below.
 
-```{r Logistic Regression hyperparameter figure, fig.align = "center",fig.width=3, fig.height=1, fig.cap= "Figure 5: Logisitic regression hyperparameter optimization for variable C and Solver", out.width="50%", out.height="30%"}
+```{r Logistic Regression hyperparameter figure, fig.align = "center",fig.width=3, fig.height=1, fig.cap= "Figure 5: Logisitic regression hyperparameter optimization for variable C and Solver", out.width="80%", out.height="60%"}
 knitr::include_graphics("../results/figures/logistic_reg.png")
 ```
 
-
-
-```{r Logistic Regression Results, message= FALSE, warning = FALSE}
+```{r Logistic Regression Results, message= FALSE, warning = FALSE, results = 'hide'}
 LR <- read_csv("../results/model_scores/logisticregression_hyperparameters.csv")%>%   
   select(mean_fit_time,	param_logisticregression__C,param_logisticregression__solver,mean_test_score,rank_test_score,mean_train_score)%>% 
   rename(C = param_logisticregression__C) %>% 
@@ -143,34 +138,34 @@ colnames(LR) <- colnames(LR) %>% str_to_title() %>% str_replace_all("_", " ")
 kable(LR,caption = 'Table 3', digits = 4)
 ```
 
-The optimal hyperparameter is a regularization variable of `r LR$C[1]` using the `r LR$Solver[1]` solver. It has a mean validation score of `r round(LR$"Mean test score"[1],2)`. Similar to the two models above,  the next four best ranking hyperparameter combinations have a very comparable score but again, our optimal model as the fastest fit time. 
+The optimal hyperparameter is a regularization variable of `r LR$C[1]` using the `r LR$Solver[1]` solver. It has a mean validation score of `r round(LR$"Mean test score"[1],2)`. Similar to the two models above, the next four best ranking hyperparameter combinations have a very comparable score but again, our optimal model as the fastest fit time.
 
 ## Conclusion
 
-Finally, we score each of our models on the f1 score and the results are as follows:
+We can summarize each of our hyperparameter tuned models using the f1 score below:
 
 ```{r model comparison, message= FALSE, warning = FALSE}
-kable(f1,caption = 'Table 4', digits = 4)
+kable(f1,caption = 'Table 1', digits = 4)
 ```
 
-We can see that the logistic regression performs the best with a mean f1 score of approximately `r round(f1$"F1 score"[1],2)`. The two other models perform well with f1 scores of `r round(f1$"F1 score"[2],2)` and `r round(f1$"F1 score"[3],2)` for the decision tree and Naive Bayes respectively.
+We can see that the logistic regression performs the best with a mean f1 score of approximately `r round(f1$"F1 score"[1],2)`. The two other models perform well with f1 scores of `r round(f1$"F1 score"[2],2)` and `r round(f1$"F1 score"[3],2)` for the decision tree and Naive Bayes respectively. In this case, the linear model did fit better than the probabilitic model.
 
-We can conclude that the logistic regression is the optimal model for the predicting a diabetes diagnosis with this dataset.
+We can conclude that the logistic regression is the optimal model for the predicting a diabetes diagnosis with this dataset based on f1 score.
 
 ## Future directions:
 
-Although the analysis above indicates that the logistic regression is the best model for this dataset, there are a few improvements that can still be made. 
+Although the analysis above indicates that the logistic regression is the best model for this dataset, there are a few improvements that can still be made.
 
-- Can we optimize fit and score time through feature selection without compromising on model accuracy? 
+-   Can we optimize fit and score time through feature selection without compromising on model accuracy?
 
-- Can we make soft predictions instead of hard predictions so that patients have an understanding of their likelihood being diagnosed? 
+-   Can we make soft predictions instead of hard predictions so that patients have an understanding of their likelihood being diagnosed?
 
-- Can we perform further analysis to understand the error rate in our training model? 
+-   Can we perform further analysis to understand the error rate in our training model?
 
-- Can we decrease the threshold for predicting positive classes to improve recall scores?
+-   Can we decrease the threshold for predicting positive classes to improve recall scores?
 
 # References
 
-Dua, Dheeru, and Casey Graff. 2017. “UCI Machine Learning Repository.” University of California, Irvine, School of Information; Computer Sciences. http://archive.ics.uci.edu/ml.
+Dua, Dheeru, and Casey Graff. 2017. "UCI Machine Learning Repository." University of California, Irvine, School of Information; Computer Sciences. <http://archive.ics.uci.edu/ml>.
 
-M, Rahatara Ferdousi, IslamEmail, and Yasmin Bushra. 2019. “Likelihood prediction of diabetes at early stage using data mining techniques.” In Computer Vision and Machine Intelligence in Medical Image Analysis, edited by Debanjan Konar Mousumi Gupta and Siddhartha Bhattacharyya, 1st ed., 113–25. International Society for Optics; Photonics; Springer.
+M, Rahatara Ferdousi, IslamEmail, and Yasmin Bushra. 2019. "Likelihood prediction of diabetes at early stage using data mining techniques." In Computer Vision and Machine Intelligence in Medical Image Analysis, edited by Debanjan Konar Mousumi Gupta and Siddhartha Bhattacharyya, 1st ed., 113–25. International Society for Optics; Photonics; Springer.
