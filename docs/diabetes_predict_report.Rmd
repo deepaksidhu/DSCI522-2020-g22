@@ -31,7 +31,7 @@ colnames(f1) <- colnames(f1) %>% str_to_title() %>% str_replace_all("_"," ")
 
 Here we apply three different classification models, decision tree, Gaussian Naïve Bayes and logistic regression to predict whether a patient has diabetes given features such as age, gender and any other existing conditions. The objective is to find the model that scores the highest f1 score for our target of having diabetes.
 
-Our analysis shows that all three models performed well on an unseen test data set. The logistic regression model has the highest f1 score (defined by : $f1 = \\frac{2 \\cdot precision \\cdot recall}{precision+ recall}$) which is `r round(f1$"F1 score"[1],2)`. The corresponding precision and recall are also `r round(f1$"Recall score"[1],2)`. The two other models also performed well but have slightly lower scores than the logistic regression model. Based on these results, we can conclude that the logistic regression model is the optimal model for this classification problem.
+Our analysis shows that all three models performed well on an unseen test data set. The logistic regression model has the highest f1 score (defined by : $f1 = \frac{2 \cdot precision \cdot recall}{precision+ recall}$) which is `r round(f1$"F1 score"[1],2)`. The corresponding precision and recall are also `r round(f1$"Recall score"[1],2)`. The two other models also performed well but have slightly lower scores than the logistic regression model. Based on these results, we can conclude that the logistic regression model is the optimal model for this classification problem.
 
 # Introduction
 

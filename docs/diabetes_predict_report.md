@@ -56,13 +56,12 @@ doctors on common traits that predict diabetes.
 Methods
 =======
 
-This Python programming language (Van Rossum and Drake 2009) and and the
-following packages were used to perform this analysis: SKLearn
-(Pedregosa et al. 2011) and Pandas (team 2020). The visualizations were
-done in the R programming language (R Core Team 2019) with the following
-packages: Tidyverse (Wickham 2017), Knitr (Xie 2014), Carat(Jed Wing et
-al. 2019), Reticulate (Ushey, Allaire, and Tang 2020). Docopt (Keleshev
-2014) in both R and Python were used.
+This Python programming language \[@Python\] and and the following
+packages were used to perform this analysis: SKLearn \[@scikit-learn\]
+and Pandas \[@reback2020pandas\]. The visualizations were done in the R
+programming language \[@R\] with the following packages: Tidyverse
+\[@tidyverse\], Knitr \[@knitr\], Carat\[@caret\], Reticulate
+\[@reticulate\]. Docopt \[@docopt\] in both R and Python were used.
 
 Data
 ====
@@ -85,64 +84,64 @@ Analysis
 ========
 
 The code used to perform the analysis and create this report can be
-found [here.](https://github.com/UBC-MDS/DSCI522-2020-g22)
+found in the repository
+[here.](https://github.com/UBC-MDS/DSCI522-2020-g22)
 
 Exploratory Data Analysis
 =========================
 
-Our exploratory data analysis indicates that we have 16 features and 520
-observations. With the exception of age, which is a numeric feature, the
-remaining are binary and categorical in nature. Since there is no
-missing data, the main transformations that are required is one hot
-encoding for the category features and scaling for the numeric features.
+We begin by splitting our data into 80% training and 20% testing
+respectively. We perform our exploratory data analysis using just the
+training portion.
+
+Initially, we can see that we have 16 features and 520 observations.
+With the exception of age, which is a numeric feature, the remaining are
+binary and categorical in nature. Since there is no missing data, the
+main transformations that are required is one hot encoding for the
+categorical features and scaling for the numeric features.
 
 With 320 observations in the positive class (has diabetes) and 200
 observations in the negative class, there doesn’t appear to be any
-severe class imbalance in the data. The plots below break down the
-distribution of positive and negative classes by feature. Since age is
-the only numeric feature, we also look at the distribution to see how
-representative the data is of a population. In general, is no severe
-class imbalance by any one feature which would influence how we train
-our model.
-
-<div class="figure" style="text-align: left">
-
-<img src="../results/figures/categorical_distributions.png" alt="Figure 1: Categorical features distribution based on the Diabetes and No Diabetes class" width="60%" height="10%" />
-<p class="caption">
-Figure 1: Categorical features distribution based on the Diabetes and No
-Diabetes class
-</p>
-
-</div>
-
-<div class="figure" style="text-align: left">
-
-<img src="../results/figures/age_distributions.png" alt="Figure 2: Age feature distribution based on the Diabetes and No Diabetes class" width="50%" height="30%" />
-<p class="caption">
-Figure 2: Age feature distribution based on the Diabetes and No Diabetes
-class
-</p>
-
-</div>
+severe class imbalance in the data. Our EDA also indicates that there
+are no major class imbalance issues on a feature by feature basis. The
+dataset also does not appear to have any features that seem
+inappropriate to train with. In general, our dataset came fairly clean
+and prepared for training without too much additional preprocessing.
 
 Result & Discussion
 ===================
 
-Once the data is split 80% for training and 20% for testing
-respectively, it is trained on three models: decision tree, Naive Bayes
-and logistic regression. The optimal hyperparameters for each model and
-their corresponding training and validation scores can be seen in the
-plots below.
+We use our 80% split of the training data to train three models:
+decision tree, Naive Bayes and logistic regression. These models were
+selected mainly for its simplicity in interpretation. In addition, we
+were interested in the difference in scoring between a probabilistic and
+linear model and if one approach would fit the data better than another.
+The objective is the find the most interpretable model that can
+accurately predict for diabetes in this dataset.
+
+Initially, the scoring metric used for this analysis was recall, since
+protecting against false positives is particularly important in
+predicting disease. However, since many of the features in this dataset
+are binary, scoring based on recall was consistently overfitting and
+returning perfect model scores across all models. From these preliminary
+results, we shifted our scoring method to the f1 score which better
+balanced recall and precision.
+
+The optimal hyperparameters for each model and their corresponding
+training and validation scores can be seen in the plots below.
 
 Decision Tree Hyperparameter Tuning
 -----------------------------------
 
-We have the figure results of the hyperparameter tuning for Maximum
-depth and Minimum sample leaves for the Decision Tree Classifier.
+The figures below show the top four performing decision tree models
+tuned for the maximum tree depth. The plots show the fixed (optimized)
+tree depth, while varying for the second hyperparameter, sample leaves.
+The blue lines indicate the mean train score and the red lines indicate
+the mean validation score.
 
 <div class="figure" style="text-align: center">
 
-<img src="../results/figures/decision_tree.png" alt="Figure 3: Decision Tree hyperparameter optimization for maximum depth and mimimum leaf values" width="40%" height="30%" />
+<img src="../results/figures/decision_tree.png" alt="Figure 3: Decision Tree hyperparameter optimization for maximum depth and mimimum leaf values" width="80%" height="60%" />
 <p class="caption">
 Figure 3: Decision Tree hyperparameter optimization for maximum depth
 and mimimum leaf values
@@ -150,50 +149,40 @@ and mimimum leaf values
 
 </div>
 
-| Rank test score | Mean fit time | Max depth | Min samples leaf | Mean test score | Mean train score |
-|----------------:|--------------:|----------:|-----------------:|----------------:|-----------------:|
-|               1 |        0.0227 |         7 |                1 |          0.9607 |           0.9955 |
-|               2 |        0.0226 |         7 |                3 |          0.9605 |           0.9776 |
-|               2 |        0.0237 |         8 |                3 |          0.9605 |           0.9776 |
-|               2 |        0.0233 |         9 |                3 |          0.9605 |           0.9776 |
+We can see that the optimal hyperparameter is a maximum depth of the
+tree is 7 and a minimum of 1 leaves since it returns the highest
+validation score of 0.96. We can also see that the other three
+hyperparameter combinations return very similar scores with slightly
+slower mean fit times.
 
-Table 1
-
-The optimal hyperparameter is a maximum depth of the tree is 7 and a
-minimum of 1 leaves since it returns the highest validation score of
-0.96. We can also see that the other three hyperparameter combinations
-return very similar scores with slightly slower mean fit times.
+Our initial hypothesis was that the decision tree model would be one of
+the most interpretable models with easy to visualize decision splits.
+However, with the optimal model having a depth of 7, it’s likely a
+little to complicated for day to day use.
 
 Naive Bayes Hyperparameter Tuning
 ---------------------------------
 
-We have the figure results of the hyperparameter tuning of Variable
-smoothing of the Naive Bayes model below.
+Below, we have the figure results of the hyperparameter tuning of
+variable smoothing of the Naive Bayes model. Again, the blue line
+indicates the mean train score and the red line indicates the mean
+validation score.
 
 <div class="figure" style="text-align: center">
 
-<img src="../results/figures/gaussian_hyperparameter.png" alt="Figure 4: Naive bayes hyperparameter optimization for variable smoothing" width="40%" height="30%" />
+<img src="../results/figures/gaussian_hyperparameter.png" alt="Figure 4: Naive bayes hyperparameter optimization for variable smoothing" width="80%" height="10%" />
 <p class="caption">
 Figure 4: Naive bayes hyperparameter optimization for variable smoothing
 </p>
 
 </div>
 
-| Rank test score | Mean fit time | Variable smoothing | Mean test score | Mean train score |
-|----------------:|--------------:|-------------------:|----------------:|-----------------:|
-|               1 |     0.0243276 |              1e-07 |       0.9034752 |        0.9087810 |
-|               1 |     0.0240662 |              1e-06 |       0.9034752 |        0.9087810 |
-|               1 |     0.0229340 |              1e-05 |       0.9034752 |        0.9087810 |
-|               1 |     0.0227625 |              1e-04 |       0.9034752 |        0.9087810 |
-|               1 |     0.0262338 |              1e-03 |       0.9034752 |        0.9092296 |
-
-Table 2
-
 The optimal hyperparameter with the Naive Bayes model is when the
 variable smoothing hyperparameter is set to 10^{-7}. It has a mean
 validation score of 0.903. Similar to decision trees, the next four
-highest ranking models seem to perform comparably. This indicates that
-this model may not too sensitive to the tuning of this hyperparameter.
+highest ranking models (not shown above) seem to perform comparably.
+This indicates that this model may not too sensitive to the tuning of
+this hyperparameter.
 
 Logistic Regression Hyperparameter Tuning
 -----------------------------------------
@@ -203,23 +192,13 @@ model complexity) and Solver of the Logistic Regression model below.
 
 <div class="figure" style="text-align: center">
 
-<img src="../results/figures/logistic_reg.png" alt="Figure 5: Logisitic regression hyperparameter optimization for variable C and Solver" width="50%" height="30%" />
+<img src="../results/figures/logistic_reg.png" alt="Figure 5: Logisitic regression hyperparameter optimization for variable C and Solver" width="80%" height="60%" />
 <p class="caption">
 Figure 5: Logisitic regression hyperparameter optimization for variable
 C and Solver
 </p>
 
 </div>
-
-| Rank test score | Mean fit time |   C | Solver    | Mean test score | Mean train score |
-|----------------:|--------------:|----:|:----------|----------------:|-----------------:|
-|               1 |        0.0242 |  10 | liblinear |          0.9342 |           0.9467 |
-|               1 |        0.0329 |  10 | saga      |          0.9342 |           0.9467 |
-|               3 |        0.0503 |  10 | newton-cg |          0.9323 |           0.9467 |
-|               3 |        0.0341 |  10 | lbfgs     |          0.9323 |           0.9467 |
-|               3 |        0.0281 |  10 | sag       |          0.9323 |           0.9467 |
-
-Table 3
 
 The optimal hyperparameter is a regularization variable of 10 using the
 liblinear solver. It has a mean validation score of 0.93. Similar to the
@@ -230,8 +209,8 @@ fit time.
 Conclusion
 ----------
 
-Finally, we score each of our models on the f1 score and the results are
-as follows:
+We can summarize each of our hyperparameter tuned models using the f1
+score below:
 
 | Model name          | F1 score | Recall score | Precision score | Accuracy |
 |:--------------------|---------:|-------------:|----------------:|---------:|
@@ -239,15 +218,16 @@ as follows:
 | Decision Tree       |   0.9231 |       0.9091 |          0.9375 |   0.9038 |
 | Gaussian NB         |   0.9104 |       0.9242 |          0.8971 |   0.8846 |
 
-Table 4
+Table 1
 
 We can see that the logistic regression performs the best with a mean f1
 score of approximately 0.97. The two other models perform well with f1
 scores of 0.92 and 0.91 for the decision tree and Naive Bayes
-respectively.
+respectively. In this case, the linear model did fit better than the
+probabilitic model.
 
 We can conclude that the logistic regression is the optimal model for
-the predicting a diabetes diagnosis with this dataset.
+the predicting a diabetes diagnosis with this dataset based on f1 score.
 
 Future directions:
 ------------------
@@ -281,75 +261,3 @@ prediction of diabetes at early stage using data mining techniques.” In
 Computer Vision and Machine Intelligence in Medical Image Analysis,
 edited by Debanjan Konar Mousumi Gupta and Siddhartha Bhattacharyya, 1st
 ed., 113–25. International Society for Optics; Photonics; Springer.
-
-<div id="refs" class="references hanging-indent">
-
-<div id="ref-caret">
-
-Jed Wing, Max Kuhn. Contributions from, Steve Weston, Andre Williams,
-Chris Keefer, Allan Engelhardt, Tony Cooper, Zachary Mayer, et al. 2019.
-*Caret: Classification and Regression Training*.
-<https://CRAN.R-project.org/package=caret>.
-
-</div>
-
-<div id="ref-docopt">
-
-Keleshev, Vladimir. 2014. *Docopt* (version 0.6.2).
-
-</div>
-
-<div id="ref-scikit-learn">
-
-Pedregosa, F., G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O.
-Grisel, M. Blondel, et al. 2011. “Scikit-Learn: Machine Learning in
-Python.” *Journal of Machine Learning Research* 12: 2825–30.
-
-</div>
-
-<div id="ref-R">
-
-R Core Team. 2019. *R: A Language and Environment for Statistical
-Computing*. Vienna, Austria: R Foundation for Statistical Computing.
-<https://www.R-project.org/>.
-
-</div>
-
-<div id="ref-reback2020pandas">
-
-team, The pandas development. 2020. *Pandas-Dev/Pandas: Pandas* (version
-1.1.1). Zenodo. <https://doi.org/10.5281/zenodo.3993412>.
-
-</div>
-
-<div id="ref-reticulate">
-
-Ushey, Kevin, JJ Allaire, and Yuan Tang. 2020. *Reticulate: Interface to
-’Python’*. <https://CRAN.R-project.org/package=reticulate>.
-
-</div>
-
-<div id="ref-Python">
-
-Van Rossum, Guido, and Fred L. Drake. 2009. *Python 3 Reference Manual*.
-Scotts Valley, CA: CreateSpace.
-
-</div>
-
-<div id="ref-tidyverse">
-
-Wickham, Hadley. 2017. *Tidyverse: Easily Install and Load the
-’Tidyverse’*. <https://CRAN.R-project.org/package=tidyverse>.
-
-</div>
-
-<div id="ref-knitr">
-
-Xie, Yihui. 2014. “Knitr: A Comprehensive Tool for Reproducible Research
-in R.” In *Implementing Reproducible Computational Research*, edited by
-Victoria Stodden, Friedrich Leisch, and Roger D. Peng. Chapman;
-Hall/CRC. <http://www.crcpress.com/product/isbn/9781466561595>.
-
-</div>
-
-</div>
