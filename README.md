@@ -86,7 +86,8 @@ To reset the repo to a clean state, with no intermediate or results
 files, run the following command at the command line/terminal from the
 root directory of this project:
 
-    docker run --rm -v PATH_ON_YOUR_COMPUTER:/home/data_analysis_eg ttimbers/data_analysis_pipeline_eg make -C '/home/data_analysis_eg' clean
+    docker run --rm -it -v  $PWD:/home/dsci522-2020-g22 marcsun314/dsci522-2020-g22 make -C dsci522-2020-g22 clean
+
 
 #### 2. Without using Docker
 
