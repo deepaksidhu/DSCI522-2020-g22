@@ -72,9 +72,7 @@ unix shell either Git Bash or terminal*
 
 To run this analysis using Docker, clone/download this repository, use
 the command line to navigate to the root of this project on your
-computer, and then type the following (filling in
-PATH\_ON\_YOUR\_COMPUTER with the absolute path to the root of this
-project on your computer).
+computer, and then type the following:
 
     docker run --rm -it -v $PWD:/dsci522-2020-g22 marcsun314/dsci522-2020-g22 make -C dsci522-2020-g22 all
 
