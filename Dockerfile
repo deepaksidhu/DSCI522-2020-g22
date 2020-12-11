@@ -1,4 +1,5 @@
-#author: Kevin  Shahnazari
+#DSCI 522 Project
+#author: Kevin Shahnazari
 #Date: 7th Dec 2020
 
 # ana Conda Docker  image
