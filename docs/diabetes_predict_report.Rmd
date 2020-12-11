@@ -150,7 +150,7 @@ kable(f1,caption = 'Table 1', digits = 4)
 
 We can see that the logistic regression performs the best with a mean f1 score of approximately `r round(f1$"F1 score"[1],2)`. The two other models perform well with f1 scores of `r round(f1$"F1 score"[2],2)` and `r round(f1$"F1 score"[3],2)` for the decision tree and Naive Bayes respectively. In this case, the linear model did fit better than the probabilitic model.
 
-We can conclude that the logistic regression is the optimal model for the predicting a diabetes diagnosis with this dataset based on f1 score.
+We can conclude that based on the f1 score, the logistic regression is the optimal model out of the three selected models for the predicting a diabetes diagnosis.
 
 ## Future directions:
 
