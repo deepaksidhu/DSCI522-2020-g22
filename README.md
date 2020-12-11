@@ -1,6 +1,5 @@
 
-Diabetes Predictor
-==================
+# Diabetes Predictor
 
 -   contributors: Heidi Ye, Gurdeepak Sidhu, Marc Sun, Kevin Shahnazari
 
@@ -8,8 +7,7 @@ Demo of a data analysis project for DSCI 522 (Data Science workflows); a
 course in the Master of Data Science program at the University of
 British Columbia.
 
-About
------
+## About
 
 We attempt to build three classification models, namely logistic
 regression, decision tree, and Naive Bayes model which can use the
@@ -58,14 +56,12 @@ Negative Diabetes
 </tbody>
 </table>
 
-Report
-------
+## Report
 
 The final report can be found
 [here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/UBC-MDS/DSCI522-2020-g22/main/docs/diabetes_predict_report.html).
 
-Usage
------
+## Usage
 
 There are two suggested ways to run this analysis:
 
@@ -80,14 +76,13 @@ computer, and then type the following (filling in
 PATH\_ON\_YOUR\_COMPUTER with the absolute path to the root of this
 project on your computer).
 
-    docker run --rm -it -v $PWD:/home/dsci522-2020-g22 marcsun314/dsci522-2020-g22 make -C dsci522-2020-g22 all
+    docker run --rm -it -v $PWD:/dsci522-2020-g22 marcsun314/dsci522-2020-g22 make -C dsci522-2020-g22 all
 
 To reset the repo to a clean state, with no intermediate or results
 files, run the following command at the command line/terminal from the
 root directory of this project:
 
-    docker run --rm -it -v  $PWD:/home/dsci522-2020-g22 marcsun314/dsci522-2020-g22 make -C dsci522-2020-g22 clean
-
+    docker run --rm -it -v $PWD:/dsci522-2020-g22 marcsun314/dsci522-2020-g22 make -C dsci522-2020-g22 clean
 
 #### 2. Without using Docker
 
@@ -106,16 +101,14 @@ root directory of this project:
 
 `make clean`
 
-Makefile dependency map
------------------------
+## Makefile dependency map
 
 Please consider the following dependency map for the make processes for
 the make file.
 
 <img src="Makefile.png" width="4336" />
 
-Dependencies
-------------
+## Dependencies
 
 -   Python 3.8.3 and Python packages:
     -   pandas==1.1.1
@@ -134,16 +127,14 @@ Dependencies
     -   reticulate==1.18
 -   GNU make 4.2.1
 
-License
--------
+## License
 
 The Diabetes Analysis material here are licensed under the MIT LICENSE.
 Anyone can’t publish this repository as their own work and should give
 credit to the contributors of the project if the results of this project
 are being used.
 
-References
-==========
+# References
 
 <div id="refs" class="references hanging-indent">
 
